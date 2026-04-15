@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOPE採用管理システム</title>
+<style>
+  :root {
+    --primary:#2563eb;--primary-dark:#1d4ed8;--primary-light:#eff6ff;
+    --success:#16a34a;--warning:#d97706;--danger:#dc2626;
+    --gray-50:#f9fafb;--gray-100:#f3f4f6;--gray-200:#e5e7eb;
+    --gray-300:#d1d5db;--gray-400:#9ca3af;--gray-500:#6b7280;
+    --gray-600:#4b5563;--gray-700:#374151;--gray-800:#1f2937;
+    --shadow:0 1px 3px rgba(0,0,0,0.1);
+    --shadow-md:0 4px 6px rgba(0,0,0,0.07);
+    --shadow-lg:0 10px 15px rgba(0,0,0,0.1);
+    --radius:8px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif;background:var(--gray-50);color:var(--gray-800);font-size:14px;}
+
+  /* Header */
+  .app-header{background:var(--primary);color:white;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:52px;box-shadow:var(--shadow-md);position:sticky;top:0;z-index:100;}
+  .app-logo{font-size:17px;font-weight:700;}
+  .app-sub{font-size:11px;opacity:0.75;margin-top:1px;}
+
+  /* Nav */
+  .nav-bar{background:white;border-bottom:1px solid var(--gray-200);display:flex;padding:0 24px;overflow-x:auto;}
+  .nav-tab{padding:12px 18px;cursor:pointer;font-size:14px;font-weight:500;color:var(--gray-500);border-bottom:3px solid transparent;transition:all 0.15s;white-space:nowrap;}
+  .nav-tab:hover{color:var(--primary);}
+  .nav-tab.active{color:var(--primary);border-bottom-color:var(--primary);}
+
+  /* Global dept filter bar */
+  .dept-filter-bar{background:white;border-bottom:2px solid var(--gray-200);padding:10px 24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:52px;z-index:90;box-shadow:0 2px 4px rgba(0,0,0,0.04);}
+  .dept-filter-label{font-size:12px;font-weight:700;color:var(--gray-500);white-space:nowrap;}
+  .dept-btn{padding:6px 16px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;border:2px solid var(--gray-200);background:white;color:var(--gray-600);transition:all 0.15s;white-space:nowrap;}
+  .dept-btn:hover{border-color:var(--primary);color:var(--primary);}
+  .dept-btn.active{background:var(--primary);border-color:var(--primary);color:white;box-shadow:0 2px 6px rgba(37,99,235,0.3);}
+  .dept-btn.all.active{background:var(--gray-700);border-color:var(--gray-700);}
+
+  .main-content{padding:20px 24px;max-width:1500px;margin:0 auto;}
+  .page{display:none;}.page.active{display:block;}
+
+  .card{background:white;border-radius:var(--radius);box-shadow:var(--shadow);}
+  .card-header{padding:14px 18px;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  .card-title{font-size:15px;font-weight:700;}
+
+  /* Stat cards */
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:20px;}
+  .stat-card{background:white;border-radius:var(--radius);padding:18px 22px;box-shadow:var(--shadow);border-left:5px solid var(--primary);cursor:pointer;transition:all 0.15s;position:relative;overflow:hidden;}
+  .stat-card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px);}
+  .stat-card::after{content:'→';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--gray-300);transition:all 0.15s;}
+  .stat-card:hover::after{color:var(--primary);right:12px;}
+  .stat-card.blue{border-left-color:var(--primary);}
+  .stat-card.orange{border-left-color:var(--warning);}
+  .stat-label{font-size:12px;color:var(--gray-500);margin-bottom:5px;}
+  .stat-value{font-size:32px;font-weight:800;color:var(--gray-800);}
+  .stat-sub{font-size:11px;color:var(--gray-400);margin-top:4px;}
+  .stat-hint{font-size:11px;color:var(--primary);margin-top:6px;font-weight:500;}
+
+  /* Weekly schedule */
+  .week-schedule{background:white;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;}
+  .week-header{padding:12px 18px;border-bottom:1px solid var(--gray-100);font-size:14px;font-weight:700;display:flex;align-items:center;gap:12px;}
+  .week-legend{display:flex;gap:12px;margin-left:auto;}
+  .week-legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--gray-500);}
+  .week-legend-dot{width:10px;height:10px;border-radius:2px;}
+  .week-grid{display:grid;grid-template-columns:repeat(7,1fr);}
+  .week-day{border-right:1px solid var(--gray-100);min-height:90px;}
+  .week-day:last-child{border-right:none;}
+  .week-day-header{padding:7px 8px;background:var(--gray-50);border-bottom:1px solid var(--gray-100);text-align:center;}
+  .week-day-name{font-size:10px;font-weight:600;color:var(--gray-500);}
+  .week-day-num{font-size:17px;font-weight:700;color:var(--gray-700);}
+  .week-day.today .week-day-header{background:#eff6ff;}
+  .week-day.today .week-day-num{color:var(--primary);}
+  .week-day.sunday .week-day-name,.week-day.sunday .week-day-num{color:#ef4444;}
+  .week-day.saturday .week-day-name,.week-day.saturday .week-day-num{color:#3b82f6;}
+  .week-events{padding:5px;display:flex;flex-direction:column;gap:3px;}
+  .week-event{padding:3px 6px;border-radius:4px;font-size:11px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .week-event.interview{background:#dbeafe;color:#1e40af;border-left:3px solid #3b82f6;}
+  .week-event.joinday{background:#dcfce7;color:#166534;border-left:3px solid #22c55e;}
+  .week-empty{font-size:11px;color:var(--gray-300);text-align:center;padding:10px 0;}
+
+  /* Filter bar (page-level, dept already set globally) */
+  .filter-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:12px 16px;background:var(--gray-50);border-bottom:1px solid var(--gray-100);}
+  .filter-bar select,.filter-bar input{padding:6px 10px;border:1px solid var(--gray-300);border-radius:6px;font-size:13px;background:white;}
+  .filter-bar select:focus,.filter-bar input:focus{outline:none;border-color:var(--primary);}
+  .filter-label{font-size:12px;color:var(--gray-500);}
+
+  /* Buttons */
+  .btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;border:none;transition:all 0.15s;white-space:nowrap;}
+  .btn-primary{background:var(--primary);color:white;}
+  .btn-primary:hover{background:var(--primary-dark);}
+  .btn-sm{padding:5px 9px;font-size:12px;}
+  .btn-outline{background:white;color:var(--gray-600);border:1px solid var(--gray-300);}
+  .btn-outline:hover{background:var(--gray-50);}
+  .btn-danger{background:var(--danger);color:white;}
+  .btn-success{background:var(--success);color:white;}
+  .btn-icon{width:28px;height:28px;padding:0;display:inline-flex;align-items:center;justify-content:center;border-radius:5px;}
+
+  /* Table */
+  .table-wrap{overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;}
+  th{padding:9px 13px;text-align:left;font-size:12px;font-weight:600;color:var(--gray-500);background:var(--gray-50);border-bottom:1px solid var(--gray-200);white-space:nowrap;}
+  td{padding:8px 13px;border-bottom:1px solid var(--gray-100);font-size:13px;vertical-align:middle;}
+  tr:last-child td{border-bottom:none;}
+  tr:hover td{background:var(--gray-50);}
+  .empty-row td{text-align:center;color:var(--gray-400);padding:40px;}
+
+  /* Inline status select */
+  .status-select{padding:4px 8px;border:1px solid var(--gray-300);border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;background:white;}
+  .status-select:focus{outline:none;}
+  .status-select.s-応募中{background:#e0e7ff;color:#3730a3;border-color:#a5b4fc;}
+  .status-select.s-通電済{background:#fef3c7;color:#92400e;border-color:#fcd34d;}
+  .status-select.s-面接予定{background:#dbeafe;color:#1e40af;border-color:#93c5fd;}
+  .status-select.s-面接済{background:#cffafe;color:#155e75;border-color:#67e8f9;}
+  .status-select.s-採用{background:#dcfce7;color:#166534;border-color:#86efac;}
+  .status-select.s-不採用{background:#fee2e2;color:#991b1b;border-color:#fca5a5;}
+  .status-select.s-辞退{background:#f3f4f6;color:#4b5563;border-color:#d1d5db;}
+
+  /* Inline date input */
+  .inline-date{padding:4px 7px;border:1px solid var(--gray-200);border-radius:5px;font-size:12px;color:var(--gray-700);background:white;cursor:pointer;min-width:115px;}
+  .inline-date:hover{border-color:var(--primary);}
+  .inline-date:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 2px rgba(37,99,235,0.1);}
+  .inline-date::-webkit-calendar-picker-indicator{cursor:pointer;opacity:0.6;}
+
+  /* Badges */
+  .badge-dept{font-size:11px;padding:2px 8px;background:var(--primary-light);color:var(--primary);border-radius:4px;font-weight:500;}
+  .badge-done{background:#dcfce7;color:#166534;font-size:11px;padding:2px 8px;border-radius:100px;font-weight:600;}
+
+  /* Progress */
+  .progress-bar-wrap{display:flex;align-items:center;gap:8px;}
+  .progress-bar{flex:1;height:6px;background:var(--gray-200);border-radius:3px;overflow:hidden;min-width:60px;}
+  .progress-fill{height:100%;border-radius:3px;background:var(--success);}
+  .progress-text{font-size:11px;color:var(--gray-500);white-space:nowrap;}
+
+  /* Modal */
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;overflow-y:auto;padding:20px;}
+  .modal-overlay.open{display:flex;align-items:flex-start;justify-content:center;}
+  .modal{background:white;border-radius:12px;width:100%;max-width:640px;box-shadow:var(--shadow-lg);margin:auto;}
+  .modal-header{padding:18px 24px 14px;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;justify-content:space-between;}
+  .modal-title{font-size:16px;font-weight:700;}
+  .modal-close{background:none;border:none;cursor:pointer;color:var(--gray-400);font-size:20px;padding:4px;border-radius:4px;}
+  .modal-close:hover{background:var(--gray-100);}
+  .modal-body{padding:18px 24px;}
+  .modal-footer{padding:14px 24px;border-top:1px solid var(--gray-100);display:flex;justify-content:flex-end;gap:10px;}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+  .form-grid.single{grid-template-columns:1fr;}
+  .form-group{display:flex;flex-direction:column;gap:4px;}
+  .form-label{font-size:12px;font-weight:600;color:var(--gray-600);}
+  .req{color:var(--danger);margin-left:2px;}
+  .form-control{padding:7px 10px;border:1px solid var(--gray-300);border-radius:6px;font-size:13px;background:white;}
+  .form-control:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,0.1);}
+  textarea.form-control{resize:vertical;min-height:68px;}
+  .form-section{margin-top:16px;padding-top:14px;border-top:1px solid var(--gray-100);}
+  .form-section-title{font-size:11px;font-weight:700;color:var(--gray-500);margin-bottom:10px;text-transform6uppercase;letter-spacing:0.5px;}
+  .checklist-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+  .checklist-item{display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--gray-50);border-radius:6px;border:1px solid var(--gray-200);}
+  .checklist-item label{font-size:13px;flex:1;}
+  .checklist-item select{padding:3px 6px;border:1px solid var(--gray-300);border-radius:4px;font-size:12px;background:white;}
+
+  /* Settings */
+  .settings-section{margin-bottom:28px;max-width:720px;}
+  .settings-title{font-size:15px;font-weight:700;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--gray-200);}
+  .settings-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:white;border-radius:8px;box-shadow:var(--shadow);margin-bottom:7px;}
+  .settings-item-label{flex:1;font-size:14px;font-weight:500;}
+  .add-item-row{display:flex;gap:10px;margin-top:12px;}
+  .add-item-row input{flex:1;padding:8px 12px;border:1px solid var(--gray-300);border-radius:6px;font-size:13px;}
+  .add-item-row input:focus{outline:none;border-color:var(--primary);}
+
+  /* Dashboard bottom */
+  .dash-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;}
+  .dash-section-title{font-size:14px;font-weight:700;color:var(--gray-700);margin-bottom:10px;}
+  .funnel{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+  .funnel-step{flex:1;min-width:90px;background:white;border-radius:8px;padding:12px 14px;box-shadow:var(--shadow);text-align:center;border-top:3px solid var(--gray-300);}
+  .funnel-step.s1{border-top-color:#6366f1}.funnel-step.s2{border-top-color:#f59e0b}.funnel-step.s3{border-top-color:#3b82f6}.funnel-step.s4{border-top-color:#10b981}.funnel-step.s5{border-top-color:#ef4444}.funnel-step.s6{border-top-color:#9ca3af}
+  .funnel-step-count{font-size:24px;font-weight:700;}
+  .funnel-step-label{font-size:11px;color:var(--gray-500);margin-top:2px;}
+  .dept-table td,.dept-table th{padding:8px 12px;}
+  .todo-list{display:flex;flex-direction:column;gap:7px;}
+  .todo-item{display:flex;align-items:center;gap:12px;padding:10px 14px;background:white;border-radius:8px;box-shadow:var(--shadow);border-left:4px solid var(--warning);}
+  .todo-item.onboarding{border-left-color:var(--primary);}
+  .todo-name{font-weight:600;font-size:13px;}
+  .todo-detail{font-size:12px;color:var(--gray-500);}
+  .todo-badge{margin-left:auto;font-size:11px;padding:2px 8px;border-radius:100px;white-space:nowrap;}
+  .todo-badge.recruit{background:#fef3c7;color:#92400e;}
+  .todo-badge.onboard{background:#dbeafe;color:#1e40af;}
+
+  /* Confirm */
+  .confirm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:2000;align-items:center;justify-content:center;}
+  .confirm-overlay.open{display:flex;}
+  .confirm-box{background:white;border-radius:10px;padding:24px;max-width:360px;width:90%;box-shadow:var(--shadow-lg);}
+  .confirm-box h3{font-size:16px;font-weight:700;margin-bottom:8px;}
+  .confirm-box p{font-size:13px;color:var(--gray-600);margin-bottom:20px;}
+  .confirm-actions{display:flex;gap:10px;justify-content:flex-end;}
+  .toast{position:fixed;bottom:24px;right:24px;background:var(--gray-800);color:white;padding:11px 18px;border-radius:8px;font-size:13px;z-index:3000;display:none;box-shadow:var(--shadow-lg);}
+  .toast.show{display:block;animation:slideUp 0.3s ease;}
+  @keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+  /* Mobile improvements */
+  @media(max-width:600px){
+    .app-header{padding:0 12px;height:48px;}
+    .app-logo{font-size:15px;}
+    .app-sub{display:none;}
+    .nav-bar{padding:0 8px;}
+    .nav-tab{padding:10px 10px;font-size:12px;}
+    .dept-filter-bar{padding:8px 12px;top:48px;}
+    .main-content{padding:12px;}
+    .card-header{padding:10px 12px;}
+    .filter-bar{padding:8px 10px;gap:6px;}
+    .modal{margin:8px;max-width:calc(100vw - 16px);}
+    .modal-body{padding:12px;}
+    .modal-header{padding:14px 16px 12px;}
+    .form-grid{grid-template-columns:1fr!important;}
+    .checklist-grid{grid-template-columns:1fr!important;}
+    th,td{padding:7px 8px;font-size:12px;}
+    .stats-grid{grid-template-columns:1fr 1fr;}
+    .stat-value{font-size:26px;}
+    .dash-row{grid-template-columns:1fr;}
+    .week-day-name{font-size:9px;}
+    .week-day-num{font-size:14px;}
+    .week-event{font-size:10px;}
+    .settings-section{max-width:100%;}
+    .btn{padding:8px 12px;font-size:13px;}
+    #shareSection{display:none;}
+  }
+
+  @media(max-width:768px){.form-grid{grid-template-columns:1fr}.checklist-grid{grid-template-columns:1fr}.dash-row{grid-template-columns:1fr}.stats-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<!-- パスワード画面 -->
+<div id="pwScreen" style="display:flex;position:fixed;inset:0;background:#1e40af;z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:20px;">
+  <div style="text-align:center;color:white;margin-bottom:10px;">
+    <div style="font-size:32px;margin-bottom:8px;">🏥</div>
+    <div style="font-size:22px;font-weight:700;">HOPE採用管理システム</div>
+    <div style="font-size:13px;opacity:0.7;margin-top:4px;">パスワードを入力してください</div>
+  </div>
+  <div style="background:white;border-radius:12px;padding:28px;width:90%;max-width:340px;box-shadow:0 20px 40px rgba(0,0,0,0.3);">
+    <input id="pwInput" type="password" placeholder="パスワード"
+      style="width:100%;padding:12px 14px;border:2px solid #e5e7eb;border-radius:8px;font-size:16px;outline:none;margin-bottom:12px;box-sizing:border-box;"
+      onkeydown="if(event.key==='Enter')checkPw()"
+      onfocus="this.style.borderColor='#2563eb'"
+      onblur="this.style.borderColor='#e5e7eb'">
+    <button onclick="checkPw()"
+      style="width:100%;padding:12px;background:#2563eb;color:white;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;">
+      ログイン
+    </button>
+    <div id="pwError" style="color:#dc2626;font-size:12px;margin-top:8px;text-align:center;display:none;">
+      パスワードが違います
+    </div>
+  </div>
+</div>
+
+
+<header class="app-header">
+  <div>
+    <div class="app-logo">🏥 HOPE採用管理システム</div>
+  <div id="connStatus" style="font-size:12px;margin-left:auto;color:#9ca3af;">● ローカル保存中</div>
+    <div class="app-sub">接骨院・グループホーム・放課後等デイサービス・本部</div>
+  </div>
+  <div style="font-size:12px;opacity:0.7;" id="headerDate"></div>
+</header>
+
+<nav class="nav-bar">
+  <div class="nav-tab active" onclick="switchPage('dashboard')">📊 ダッシュボード</div>
+  <div class="nav-tab" onclick="switchPage('recruitment')">📋 求人管理</div>
+  <div class="nav-tab" onclick="switchPage('onboarding')">✅ 入社手続き</div>
+  <div class="nav-tab" onclick="switchPage('settings')">⚙️ 設定</div>
+</nav>
+
+<!-- GLOBAL DEPT FILTER -->
+<div class="dept-filter-bar">
+  <span class="dept-filter-label">📌 表示部門：</span>
+  <div id="deptButtons"></div>
+</div>
+
+<div class="main-content">
+
+<!-- DASHBOARD -->
+<div class="page active" id="page-dashboard">
+  <div class="stats-grid" id="dashStats"></div>
+  <div class="week-schedule">
+    <div class="week-header">
+      📅 直近1週間のスケジュール
+      <div class="week-legend">
+        <div class="week-legend-item"><div class="week-legend-dot" style="background:#3b82f6;"></div>面接</div>
+        <div class="week-legend-item"><div class="week-legend-dot" style="background:#22c55e;"></div>初出勤</div>
+      </div>
+    </div>
+    <div class="week-grid" id="weekGrid"></div>
+  </div>
+  <div class="dash-section-title">📈 採用ファネル</div>
+  <div class="funnel" id="dashFunnel"></div>
+  <div class="dash-row">
+    <div>
+      <div class="dash-section-title">🏢 部門別応募状況</div>
+      <div class="card"><div class="table-wrap"><table class="dept-table">
+        <thead><tr><th>部門</th><th>選考中</th><th>採用</th><th>不採用/辞退</th></tr></thead>
+        <tbody id="dashDeptTable"></tbody>
+      </table></div></div>
+    </div>
+    <div>
+      <div class="dash-section-title">⚠️ 対応が必要な事項</div>
+      <div class="todo-list" id="dashTodos"></div>
+    </div>
+  </div>
+</div>
+
+<!-- RECRUITMENT -->
+<div class="page" id="page-recruitment">
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title">求人管理（応募〜採用フロー）</div>
+        <div id="recruitDeptLabel" style="font-size:12px;color:var(--gray-500);margin-top:2px;"></div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-outline btn-sm" onclick="exportCSV('recruitment')">📥 CSV出力</button>
+        <button class="btn btn-primary" onclick="openRecruitModal(null)">＋ 応募者追加</button>
+      </div>
+    </div>
+    <div class="filter-bar">
+      <span class="filter-label">絞り込み：</span>
+      <select id="rFilterStatus" onchange="renderRecruitTable()">
+        <option value="">全ステータス</option>
+        <option>応募中</option><option>通電済</option><option>面接予定</option>
+        <option>面接済</option><option>採用</option><option>不採用</option><option>辝退</option>
+      </select>
+      <input type="text" id="rFilterSearch" placeholder="氏名・職種で検索..." oninput="renderRecruitTable()" style="min-width:180px;">
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>応募日</th><th>氏名</th><th>部門</th><th>応募職種</th><th>応募経路</th>
+          <th>ステータス</th><th>面接日</th><th>入社予定日</th><th style="width:110px;"></th>
+        </tr></thead>
+        <tbody id="recruitTbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ONBOARDING -->
+<div class="page" id="page-onboarding">
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title">入社手続き管理（採用決定〜手続き完了）</div>
+        <div id="onboardDeptLabel" style="font-size:12px;color:var(--gray-500);margin-top:2px;"></div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-outline btn-sm" onclick="exportCSV('onboarding')">📥 CSV出力</button>
+        <button class="btn btn-primary" onclick="openOnboardModal(null)">＋ 手続き対象者追加</button>
+      </div>
+    </div>
+    <div class="filter-bar">
+      <span class="filter-label">絞り込み：</span>
+      <select id="oFilterStatus" onchange="renderOnboardTable()">
+        <option value="">全ステータス</option>
+        <option value="incomplete">手続き中</option>
+        <option value="complete">完了</option>
+      </select>
+      <input type="text" id="oFilterSearch" placeholder="氏名で検索..." oninput="renderOnboardTable()" style="min-width:180px;">
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>氏名</th><th>部門</th><th>雇用区分</th><th>入社日（予定）</th>
+          <th>手続き進捗</th><th>未完了事項</th><th style="width:90px;"></th>
+        </tr></thead>
+        <tbody id="onboardTbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div class="page" id="page-settings">
+  <div id="shareSection" style="margin-bottom:30px;padding:18px;background:#f0f9ff;border-left:4px solid #0284c7;border-radius:6px;">
+    <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;color:#0c4a6e;">📊 データ共有設定</h3>
+    <p style="font-size:12px;color:#475569;margin-bottom:15px;line-height:1.6;">複数のメンバーでデータを共有できます。<br><strong style="color:#0c4a6e;">代表者が新規ファイルを作成 → メンバーが同じファイルに接続</strong>という流れで使用できます。</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px;">
+      <button class="btn btn-primary" onclick="openSharedFile()" id="openSharedBtn">📂 既存ファイルに接続</button>
+      <button class="btn btn-success" onclick="createSharedFile()" id="createSharedBtn">🆕 新規共有ファイルを作成</button>
+      <button class="btn btn-outline" onclick="syncFromFile()" id="syncBtn">🔄 今すぐ同期</button>
+      <button class="btn btn-outline" onclick="disconnectFile()" id="disconnectBtn">❌ 接続を解除</button>
+    </div>
+    <div id="shareApiWarning" style="display:none;font-size:12px;color:#c2255c;background:#ffe4e6;padding:10px;border-radius:4px;margin-bottom:10px;">⚠️ このブラウザはFile System Access APIに対応していません。Chrome/Edgeをご使用ください</div>
+    <div style="font-size:11px;color:#64748b;background:white;padding:12px;border-radius:4px;border:1px solid #e2e8f0;"><strong style="color:#334155;">【共有の手順】</strong><br>1. 代表者が「新規共有ファイルを作成」 → Googleドライブなど共有フォルダにファイル保存<br>2. 他のメンバーは「既存ファイルに接続」 → 同じファイルを選択<br>3. データを変更すると自動でファイルに保存されます<br><span style="color:#ef4444;">⚠️ 複数人の同時編集は上書きされる場合があります。同時編集は避けてください。</span></div>
+  </div>
+  <div class="settings-section">
+    <div class="settings-title">✅ 手続きチェックリスト訁目</div>
+    <p style="font-size:13px;color:var(--gray-500);margin-bottom:12px;">入社手続きのチェック項目を追加・削除・並び替えできます。</p>
+    <div id="settingsChecklistItems"></div>
+    <div class="add-item-row">
+      <input type="text" id="newChecklistLabel" placeholder="新しい項目名（例：健康診断の実施）" onkeydown="if(event.key==='Enter')addChecklistItem()">
+      <button class="btn btn-primary" onclick="addChecklistItem()">＋ 追加</button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <div class="settings-title">🏢 部門設定</div>
+    <p style="font-size:13px;color:var(--gray-500);margin-bottom:12px;">部門を追加・削除・並び替えできます。変更はすぐに部門フィルターに反映されます。</p>
+    <div id="settingsDepts"></div>
+    <div class="add-item-row">
+      <input type="text" id="newDeptLabel" placeholder="新しい部門名" onkeydown="if(event.key==='Enter')addDept()">
+      <button class="btn btn-primary" onclick="addDept()">＋ 追加</button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <div class="settings-title">📂 データ管理・同期</div>
+    <div id="mobileDataHint" style="display:none;padding:12px;background:#f0f9ff;border-left:4px solid #0284c7;border-radius:6px;margin-bottom:12px;font-size:13px;line-height:1.6;">
+      📱 <strong>スマートフォンでのデータ同期方法</strong><br>
+      PCで「全データをバックアップ」→ JSONファイルをGoogleドライブに保存<br>
+      スマホで → 「バックアップから復元」→ そはJSONファイルを選択
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <button class="btn btn-outline" onclick="exportAllData()">💾 全データをバックアップ</button>
+      <button class="btn btn-outline" onclick="importData()">📂 バックアップから復元</button>
+      <button class="btn btn-danger btn-sm" onclick="confirmClearAll()">⚠ 全データをリセット</button>
+    </div>
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="doImport(event)">
+  </div>
+</div>
+
+</div><!-- /main-content -->
+
+<!-- RECRUIT MODAL -->
+<div class="modal-overlay" id="recruitModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="recruitModalTitle">応募者を追加</div>
+      <button class="modal-close" onclick="closeModal('recruitModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group"><label class="form-label">応募日 <span class="req">*</span></label><input type="date" class="form-control" id="r_date"></div>
+        <div class="form-group"><label class="form-label">氏名 <span class="req">*</span></label><input type="text" class="form-control" id="r_name" placeholder="例：山田 太郎"></div>
+        <div class="form-group"><label class="form-label">年齢</label><input type="number" class="form-control" id="r_age" placeholder="35"></div>
+        <div class="form-group"><label class="form-label">性別</label>
+          <select class="form-control" id="r_gender"><option value="">選択</option><option>男性</option><option>女性</option><option>その他</option></select></div>
+        <div class="form-group"><label class="form-label">部門 <span class="req">*</span></label><select class="form-control" id="r_dept"></select></div>
+        <div class="form-group"><label class="form-label">応募職種</label><input type="text" class="form-control" id="r_job" placeholder="例：児童指導員"></div>
+        <div class="form-group"><label class="form-label">応募経路</label>
+          <select class="form-control" id="r_source"><option value="">選択</option><option>Indeed</option><option>タイミー</option><option>ハローワーク</option><option>紹介</option><option>タウンワーク</option><option>自社HP</option><option>その他</option></select></div>
+        <div class="form-group"><label class="form-label">ステータス <span class="req">*</span></label>
+          <select class="form-control" id="r_status"><option>応募中</option><option>通電済</option><option>面接予定</option><option>面接済</option><option>採用</option><option>不採用</option><option>辞退</option></select></div>
+      </div>
+      <div class="form-section">
+        <div class="form-section-title">📅 日程</div>
+        <div class="form-grid">
+          <div class="form-group"><label class="form-label">通電日</label><input type="date" class="form-control" id="r_call_date"></div>
+          <div class="form-group"><label class="form-label">面接①日</label><input type="date" class="form-control" id="r_int1_date"></div>
+          <div class="form-group"><label class="form-label">面接②日</label><input type="date" class="form-control" id="r_int2_date"></div>
+          <div class="form-group"><label class="form-label">入社予定日</label><input type="date" class="form-control" id="r_join_date"></div>
+        </div>
+      </div>
+      <div class="form-section">
+        <div class="form-section-title">📝 メモ</div>
+        <div class="form-grid single">
+          <div class="form-group"><label class="form-label">辞退・不採用理由</label><input type="text" class="form-control" id="r_reject_reason" placeholder="該当する場合"></div>
+          <div class="form-group"><label class="form-label">備考・候補者メモ</label><textarea class="form-control" id="r_note" placeholder="経歴・特記事項など"></textarea></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('recruitModal')">キャンセル</button>
+      <button class="btn btn-primary" onclick="saveRecruit()">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- ONBOARD MODAL -->
+<div class="modal-overlay" id="onboardModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="onboardModalTitle">入社手続き対象者を追加</div>
+      <button class="modal-close" onclick="closeModal('onboardModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group"><label class="form-label">氏名 <span class="req">*</span></label><input type="text" class="form-control" id="o_name" placeholder="例：山田 太郎"></div>
+        <div class="form-group"><label class="form-label">部門 <span class="req">*</span></label><select class="form-control" id="o_dept"></select></div>
+        <div class="form-group"><label class="form-label">入社日（予定） <span class="req">*</span></label><input type="date" class="form-control" id="o_join_date"></div>
+        <div class="form-group"><label class="form-label">雇用区分</label>
+          <select class="form-control" id="o_emp_type"><option value="">選択</option><option>社員</option><option>パート</option><option>短時間夜勤</option><option>長時間夜勤</option><option>アルバイト</option><option>契約社員</option></select></div>
+        <div class="form-group"><label class="form-label">想定労働時間（時間/月）</label><input type="number" class="form-control" id="o_hours" placeholder="80"></div>
+        <div class="form-group"><label class="form-label">想定賃金（円/月）</label><input type="number" class="form-control" id="o_salary" placeholder="150000"></div>
+        <div class="form-group"><label class="form-label">雇用保険の有無</label>
+          <select class="form-control" id="o_emp_ins"><option value="">選択</option><option>有</option><option>なし</option></select></div>
+        <div class="form-group"><label class="form-label">社会保険の有無</label>
+          <select class="form-control" id="o_social_ins"><option value="">選択</option><option>有</option><option>なし</option></select></div>
+        <div class="form-group"><label class="form-label">就労開始日時</label><input type="datetime-local" class="form-control" id="o_start_dt"></div>
+        <div class="form-group"><label class="form-label">契約終了日</label><input type="date" class="form-control" id="o_contract_end"></div>
+      </div>
+      <div class="form-section">
+        <div class="form-section-title">✅ 手続きチェックリスト</div>
+        <div class="checklist-grid" id="checklistItems"></div>
+      </div>
+      <div class="form-section">
+        <div class="form-section-title">📝 備考</div>
+        <div class="form-group"><textarea class="form-control" id="o_note" placeholder="特記事項など"></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('onboardModal')">キャンセル</button>
+      <button class="btn btn-primary" onclick="saveOnboard()">保存</button>
+    </div>
+  </div>
+</div>
+
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <h3 id="confirmTitle">確認</h3><p id="confirmMsg"></p>
+    <div class="confirm-actions">
+      <button class="btn btn-outline" onclick="closeConfirm()">キャンセル</button>
+      <button class="btn btn-danger" id="confirmOk">実行する</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+
+// ── パスワード認証 ──
+const APP_PASSWORD = 'hope2026'; // ← パスワードはここを変更
+function checkPw(){
+  const input = document.getElementById('pwInput').value;
+  if(input === APP_PASSWORD){
+    document.getElementById('pwScreen').style.display = 'none';
+    sessionStorage.setItem('hope_auth','1');
+  } else {
+    document.getElementById('pwError').style.display = 'block';
+    document.getElementById('pwInput').value = '';
+    document.getElementById('pwInput').focus();
+  }
+}
+// セッション中は認証済みを記憶
+if(sessionStorage.getItem('hope_auth')==='1'){
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const sc = document.getElementById('pwScreen');
+    if(sc) sc.style.display='none';
+  });
+}
+// ── DEFAULT DATA ──
+const DEFAULT_CHECKLIST=[
+  {key:'kot',label:'KOT登録'},{key:'freee',label:'freee登録'},
+  {key:'mynumber',label:'マイナンバー確認'},{key:'fuyou',label:'扶養の有無の確認'},
+  {key:'emp_ins_app',label:'雇用保険の申請'},{key:'bank',label:'振込口座の確認'},
+  {key:'contract',label:'雇用契約書の締結'},{key:'social_ins',label:'社保の登録'},
+  {key:'pension',label:'退職金共済申込書の登録'}
+];
+const DEFAULT_DEPTS=['接骨院','本部','グループホーム','放課後等デイサービス'];
+
+function loadData(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch{return d;}}
+function saveData(k,v){localStorage.setItem(k,JSON.stringify(v));}
+
+let recruitments =loadData('hope_recruit',[]);
+let onboardings  =loadData('hope_onboard',[]);
+let checklistDefs=loadData('hope_checklist',DEFAULT_CHECKLIST);
+let deptDefs     =loadData('hope_depts',DEFAULT_DEPTS);
+let editingRecruitId=null,editingOnboardId=null,confirmCallback=null;
+let activeDept=''; // global dept filter: '' = all
+
+function genId(){return Date.now()+'_'+Math.random().toString(36).slice(2,7);}
+
+// ── GLOBAL DEPT FILTER ──
+function buildDeptButtons(){
+  const wrap=document.getElementById('deptButtons');
+  const all=[{key:'',label:'全部門'},...deptDefs.map(d=>({key:d,label:d}))];
+  wrap.style.display='flex';wrap.style.gap='8px';wrap.style.flexWrap='wrap';
+  wrap.innerHTML=all.map(d=>`
+    <button class="dept-btn${d.key===''?' all':''} ${activeDept===d.key?'active':''}"
+      onclick="setActiveDept('${d.key}')">${d.label}</button>`).join('');
+}
+function setActiveDept(dept){
+  activeDept=dept;
+  buildDeptButtons();
+  // refresh current page
+  const cur=document.querySelector('.page.active').id.replace('page-','');
+  if(cur==='dashboard')renderDashboard();
+  if(cur==='recruitment')renderRecruitTable();
+  if(cur==='onboarding')renderOnboardTable();
+}
+
+// ── NAVIGATION ──
+function switchPage(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  const tabs=document.querySelectorAll('.nav-tab');
+  const map={dashboard:0,recruitment:1,onboarding:2,settings:3};
+  tabs[map[page]].classList.add('active');
+  if(page==='dashboard')renderDashboard();
+  if(page==='recruitment')renderRecruitTable();
+  if(page==='onboarding')renderOnboardTable();
+  if(page==='settings')renderSettings();
+}
+
+// ── DEPT SELECT IN MODALS ──
+function populateDeptSelects(){
+  ['r_dept','o_dept'].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    const val=el.value||activeDept;
+    el.innerHTML='<option value="">選択してください</option>'+deptDefs.map(d=>`<option${d===val?' selected':''}>${d}</option>`).join('');
+  });
+}
+
+// ── RECRUIT ──
+function openRecruitModal(id){
+  editingRecruitId=id;populateDeptSelects();
+  const el=i=>document.getElementById(i);
+  if(id){
+    const r=recruitments.find(x=>x.id===id);
+    el('recruitModalTitle').textContent='応募者を編集';
+    el('r_date').value=r.date||'';el('r_name').value=r.name||'';el('r_age').value=r.age||'';
+    el('r_gender').value=r.gender||'';el('r_dept').value=r.dept||'';el('r_job').value=r.job||'';
+    el('r_source').value=r.source||'';el('r_status').value=r.status||'応募中';
+    el('r_call_date').value=r.call_date||'';el('r_int1_date').value=r.int1_date||'';
+    el('r_int2_date').value=r.int2_date||'';el('r_join_date').value=r.join_date||'';
+    el('r_reject_reason').value=r.reject_reason||'';el('r_note').value=r.note||'';
+  }else{
+    el('recruitModalTitle').textContent='応募者を追加';
+    el('r_date').value=new Date().toISOString().slice(0,10);
+    ['r_name','r_age','r_gender','r_job','r_source','r_call_date','r_int1_date','r_int2_date','r_join_date','r_reject_reason','r_note'].forEach(i=>el(i).value='');
+    el('r_status').value='応募中';
+    // pre-select active dept
+    if(activeDept)el('r_dept').value=activeDept;
+  }
+  openModal('recruitModal');
+}
+function saveRecruit(){
+  const el=i=>document.getElementById(i);
+  const name=el('r_name').value.trim(),date=el('r_date').value,dept=el('r_dept').value;
+  if(!name||!date||!dept){toast('氏名・応募日・部門は必須です');return;}
+  const rec={id:editingRecruitId||genId(),date,name,age:el('r_age').value,gender:el('r_gender').value,
+    dept,job:el('r_job').value,source:el('r_source').value,status:el('r_status').value,
+    call_date:el('r_call_date').value,int1_date:el('r_int1_date').value,int2_date:el('r_int2_date').value,
+    join_date:el('r_join_date').value,reject_reason:el('r_reject_reason').value,note:el('r_note').value,
+    updated:new Date().toISOString()};
+  if(editingRecruitId)recruitments[recruitments.findIndex(x=>x.id===editingRecruitId)]=rec;
+  else recruitments.push(rec);
+  saveData('hope_recruit',recruitments);
+saveToFile();closeModal('recruitModal');renderRecruitTable();
+  toast(editingRecruitId?'更新しました':'追加しました');
+}
+function updateRecruitStatus(id,newStatus){
+  const idx=recruitments.findIndex(x=>x.id===id);if(idx===-1)return;
+  recruitments[idx].status=newStatus;recruitments[idx].updated=new Date().toISOString();
+  saveData('hope_recruit',recruitments);saveToFile();
+  const sel=document.getElementById('status_'+id);
+  if(sel)sel.className='status-select s-'+newStatus;
+  if(newStatus==='採用')toast('採用！「→手続」ボタンで入社手続きへ連携できます');
+  else toast('ステータスを更新しました');
+}
+function updateRecruitDate(id,field,val){
+  const idx=recruitments.findIndex(x=>x.id===id);if(idx===-1)return;
+  recruitments[idx][field]=val;recruitments[idx].updated=new Date().toISOString();
+  saveData('hope_recruit',recruitments);saveToFile();
+  // refresh weekly schedule on dashboard silently
+}
+function deleteRecruit(id){
+  const r=recruitments.find(x=>x.id===id);
+  showConfirm('応募者を削除',`「${r.name}」を削除しますか？`,()=>{
+    recruitments=recruitments.filter(x=>x.id!==id);saveData('hope_recruit',recruitments);saveToFile();renderRecruitTable();toast('削除しました');
+  });
+}
+function promoteToOnboard(recruitId){
+  const r=recruitments.find(x=>x.id===recruitId);
+  if(onboardings.find(x=>x.from_recruit===recruitId)){toast('すでに入社手続きに登録済みです');return;}
+  const o={id:genId(),from_recruit:recruitId,name:r.name,dept:r.dept,join_date:r.join_date||'',
+    emp_type:'',hours:'',salary:'',emp_ins:'',social_ins:'',start_dt:'',contract_end:'',
+    checklist:{},note:'',updated:new Date().toISOString()};
+  onboardings.push(o);saveData('hope_onboard',onboardings);
+  toast(`${r.name} さんを入社手続きに追加しました`);
+  switchPage('onboarding');setTimeout(()=>openOnboardModal(o.id),300);
+}
+function filterRecruits(){
+  let data=recruitments;
+  if(activeDept)data=data.filter(r=>r.dept===activeDept);
+  return data;
+}
+function renderRecruitTable(){
+  const status=document.getElementById('rFilterStatus').value;
+  const search=document.getElementById('rFilterSearch').value.toLowerCase();
+  const lbl=document.getElementById('recruitDeptLabel');
+  lbl.textContent=activeDept?`表示中：${activeDept}`:'全部門を表示中';
+  const tbody=document.getElementById('recruitTbody');
+  let data=filterRecruits().filter(r=>{
+    if(status&&r.status!==status)return false;
+    if(search&&!r.name.toLowerCase().includes(search)&&!(r.job||'').toLowerCase().includes(search))return false;
+    return true;
+  }).sort((a,b)=>b.date.localeCompare(a.date));
+  if(!data.length){tbody.innerHTML='<tr class="empty-row"><td colspan="9">応募者データがありません</td></tr>';return;}
+  const stats=['応募中','通電済','面接予定','面接済','採用','不採用','辝退'];
+  tbody.innerHTML=data.map(r=>`
+    <tr>
+      <td>${r.date}</td>
+      <td style="font-weight:600;">${r.name}</td>
+      <td><span class="badge-dept">${r.dept}</span></td>
+      <td>${r.job||'—'}</td>
+      <td style="font-size:12px;">${r.source||'—'}</td>
+      <td>
+        <select id="status_${r.id}" class="status-select s-${r.status}" onchange="updateRecruitStatus('${r.id}',this.value)">
+          ${stats.map(s=>`<option${s===r.status?' selected':''}>${s}</option>`).join('')}
+        </select>
+      </td>
+      <td>
+        <input type="date" class="inline-date" value="${r.int1_date||''}"
+          onchange="updateRecruitDate('${r.id}','int1_date',this.value)" title="面接①日">
+      </td>
+      <td>
+        <input type="date" class="inline-date" value="${r.join_date||''}"
+          onchange="updateRecruitDate('${r.id}','join_date',this.value)" title="入社予定日">
+      </td>
+      <td>
+        <div style="display:flex;gap:3px;">
+          <button class="btn btn-outline btn-sm btn-icon" title="編集" onclick="openRecruitModal('${r.id}')">✏️</button>
+          <button class="btn btn-outline btn-sm btn-icon" title="削除" onclick="deleteRecruit('${r.id}')">🗑</button>
+          ${r.status==='採用'?`<button class="btn btn-success btn-sm" onclick="promoteToOnboard('${r.id}')">→手続</button>`:''}
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+// ── ONBOARD ──
+function buildChecklistUI(checklist){
+  document.getElementById('checklistItems').innerHTML=checklistDefs.map(item=>`
+    <div class="checklist-item">
+      <label for="chk_${item.key}">${item.label}</label>
+      <select id="chk_${item.key}">
+        <option value="">未</option>
+        <option value="済"${checklist[item.key]==='済'?' selected':''}>済</option>
+        <option value="不要"${checklist[item.key]==='不要'?' selected':''}>不要</option>
+      </select>
+    </div>`).join('');
+}
+function getChecklistFromUI(){
+  const r={};checklistDefs.forEach(item=>{r[item.key]=document.getElementById('chk_'+item.key)?.value||'';});return r;
+}
+function calcProgress(checklist){
+  const done=checklistDefs.filter(item=>{const v=(checklist||{})[item.key]||'';return v==='済'||v==='不要';}).length;
+  return{done,total:checklistDefs.length};
+}
+function openOnboardModal(id){
+  editingOnboardId=id;populateDeptSelects();
+  const el=i=>document.getElementById(i);
+  if(id){
+    const o=onboardings.find(x=>x.id===id);
+    el('onboardModalTitle').textContent='入社手続きを編集';
+    el('o_name').value=o.name||'';el('o_dept').value=o.dept||'';el('o_join_date').value=o.join_date||'';
+    el('o_emp_type').value=o.emp_type||'';el('o_hours').value=o.hours||'';el('o_salary').value=o.salary||'';
+    el('o_emp_ins').value=o.emp_ins||'';el('o_social_ins').value=o.social_ins||'';
+    el('o_start_dt').value=o.start_dt||'';el('o_contract_end').value=o.contract_end||'';
+    el('o_note').value=o.note||'';buildChecklistUI(o.checklist||{});
+  }else{
+    el('onboardModalTitle').textContent='入社手続き対象者を追加';
+    ['o_name','o_dept','o_join_date','o_emp_type','o_hours','o_salary',
+     'o_emp_ins','o_social_ins','o_start_dt','o_contract_end','o_note'].forEach(i=>el(i).value='');
+    if(activeDept)el('o_dept').value=activeDept;
+    buildChecklistUI({});
+  }
+  openModal('onboardModal');
+}
+function saveOnboard(){
+  const el=i=>document.getElementById(i);
+  const name=el('o_name').value.trim(),dept=el('o_dept').value;
+  if(!name||!dept){toast('氏名と部門は必須です');return;}
+  const rec={id:editingOnboardId||genId(),
+    from_recruit:editingOnboardId?(onboardings.find(x=>x.id===editingOnboardId)?.from_recruit||null):null,
+    name,dept,join_date:el('o_join_date').value,emp_type:el('o_emp_type').value,
+    hours:el('o_hours').value,salary:el('o_salary').value,
+    emp_ins:el('o_emp_ins').value,social_ins:el('o_social_ins').value,
+    start_dt:el('o_start_dt').value,contract_end:el('o_contract_end').value,
+    checklist:getChecklistFromUI(),note:el('o_note').value,updated:new Date().toISOString()};
+  if(editingOnboardId)onboardings[onboardings.findIndex(x=>x.id===editingOnboardId)]=rec;
+  else onboardings.push(rec);
+  saveData('hope_onboard',onboardings);
+saveToFile();closeModal('onboardModal');renderOnboardTable();
+  toast(editingOnboardId?'更新しました':'追加しました');
+}
+function deleteOnboard(id){
+  const o=onboardings.find(x=>x.id===id);
+  showConfirm('削除',`「${o.name}」を削除しますか？`,()=>{
+    onboardings=onboardings.filter(x=>x.id!==id);saveData('hope_onboard',onboardings);saveToFile();renderOnboardTable();toast('削除しました');
+  });
+}
+function filterOnboards(){
+  let data=onboardings;
+  if(activeDept)data=data.filter(o=>o.dept===activeDept);
+  return data;
+}
+function renderOnboardTable(){
+  const status=document.getElementById('oFilterStatus').value;
+  const search=document.getElementById('oFilterSearch').value.toLowerCase();
+  const lbl=document.getElementById('onboardDeptLabel');
+  lbl.textContent=activeDept?`表示中：${activeDept}`:'全部門を表示中';
+  const tbody=document.getElementById('onboardTbody');
+  let data=filterOnboards().filter(o=>{
+    const{done,total}=calcProgress(o.checklist||{});
+    if(status==='complete'&&done<total)return false;
+    if(status==='incomplete'&&done>=total)return false;
+    if(search&&!o.name.toLowerCase().includes(search))return false;
+    return true;
+  }).sort((a,b)=>(b.join_date||'').localeCompare(a.join_date||''));
+  if(!data.length){tbody.innerHTML='<tr class="empty-row"><td colspan="7">手続き対象者がいません</td></tr>';return;}
+  tbody.innerHTML=data.map(o=>{
+    const{done,total}=calcProgress(o.checklist||{});
+    const pct=total?Math.round(done/total*100):0;
+    const pending=checklistDefs.filter(item=>!((o.checklist||{})[item.key])).map(i=>i.label);
+    return`<tr>
+      <td style="font-weight:600;">${o.name}</td>
+      <td><span class="badge-dept">${o.dept}</span></td>
+      <td>${o.emp_type||'—'}</td>
+      <td>${o.join_date||'—'}</td>
+      <td><div class="progress-bar-wrap">
+        <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+        <span class="progress-text">${done}/${total}</span>
+        ${done>=total?'<span class="badge-done">完了</span>':''}
+      </div></td>
+      <td style="font-size:12px;color:var(--gray-500);">${pending.length?pending.slice(0,3).join('・')+(pending.length>3?` 他${pending.length-3}件`:''):'✅ すべて完了'}</td>
+      <td><div style="display:flex;gap:4px;">
+        <button class="btn btn-outline btn-sm btn-icon" onclick="openOnboardModal('${o.id}')">✏️</button>
+        <button class="btn btn-outline btn-sm btn-icon" onclick="deleteOnboard('${o.id}')">🗑</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+// ── WEEKLY SCHEDULE ──
+function renderWeekSchedule(){
+  const today=new Date();today.setHours(0,0,0,0);
+  const days=[];for(let i=0;i<7;i++){const d=new Date(today);d.setDate(today.getDate()+i);days.push(d);}
+  const dayNames=['日','月','火','水','木','金','土'];
+  const fmt=d=>d.toISOString().slice(0,10);
+  const eventMap={};days.forEach(d=>{eventMap[fmt(d)]=[];});
+  // filter by dept
+  const rData=activeDept?recruitments.filter(r=>r.dept===activeDept):recruitments;
+  const oData=activeDept?onboardings.filter(o=>o.dept===activeDept):onboardings;
+  rData.forEach(r=>{
+    [r.int1_date,r.int2_date].forEach(dt=>{if(dt&&eventMap[dt]!==undefined)eventMap[dt].push({type:'interview',name:r.name,dept:r.dept});});
+    if(r.join_date&&eventMap[r.join_date]!==undefined)eventMap[r.join_date].push({type:'joinday',name:r.name,dept:r.dept});
+  });
+  oData.forEach(o=>{
+    if(o.join_date&&eventMap[o.join_date]!==undefined){
+      if(!rData.find(r=>r.join_date===o.join_date&&r.name===o.name))
+        eventMap[o.join_date].push({type:'joinday',name:o.name,dept:o.dept});
+    }
+  });
+  document.getElementById('weekGrid').innerHTML=days.map(d=>{
+    const key=fmt(d),dow=d.getDay(),isToday=key===fmt(today);
+    const cls=['week-day',isToday?'today':'',dow===0?'sunday':dow===6?'saturday':''].filter(Boolean).join(' ');
+    const evs=eventMap[key]||[];
+    return`<div class="${cls}">
+      <div class="week-day-header">
+        <div class="week-day-name">${dayNames[dow]}${isToday?' 今日':''}</div>
+        <div class="week-day-num">${d.getMonth()+1}/${d.getDate()}</div>
+      </div>
+      <div class="week-events">
+        ${evs.length?evs.map(ev=>`<div class="week-event ${ev.type}" title="${ev.name}（${ev.dept}）">${ev.type==='interview'?'🗓':'🎉'} ${ev.name}</div>`).join(''):'<div class="week-empty">—</div>'}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── DASHBOARD ──
+function renderDashboard(){
+  const rData=activeDept?recruitments.filter(r=>r.dept===activeDept):recruitments;
+  const oData=activeDept?onboardings.filter(o=>o.dept===activeDept):onboardings;
+  const active=rData.filter(r=>!['採用','不採用','辞退'].includes(r.status));
+  const obIncomplete=oData.filter(o=>{const{done,total}=calcProgress(o.checklist||{});return done<total;});
+  const deptLabel=activeDept?`（${activeDept}）`:'（全部門）';
+
+  document.getElementById('dashStats').innerHTML=`
+    <div class="stat-card blue" onclick="switchPage('recruitment')" title="求人管理へ">
+      <div class="stat-label">選考中 ${deptLabel}</div>
+      <div class="stat-value">${active.length}</div>
+      <div class="stat-sub">進行中の応募者</div>
+      <div class="stat-hint">クリックで求人管理へ</div>
+    </div>
+    <div class="stat-card orange" onclick="switchPage('onboarding')" title="入社手続きへ">
+      <div class="stat-label">入社手続き中 ${deptLabel}</div>
+      <div class="stat-value">${obIncomplete.length}</div>
+      <div class="stat-sub">手続き未完了の人数</div>
+      <div class="stat-hint">クリックで入社手続きへ</div>
+    </div>`;
+
+  renderWeekSchedule();
+
+  // funnel
+  const sc={'応募中':0,'通電済':0,'面接中':0,'採用':0,'不採用':0,'辞退':0};
+  rData.forEach(r=>{
+    if(r.status==='応募中')sc['応募中']++;
+    else if(r.status==='通電済')sc['通電済']++;
+    else if(['面接予定','面接済'].includes(r.status))sc['面接中']++;
+    else if(r.status==='採用')sc['採用']++;
+    else if(r.status==='不採用')sc['不採用']++;
+    else if(r.status==='辞退')sc['辞退']++;
+  });
+  const cols=['s1','s2','s3','s4','s5','s6'];
+  document.getElementById('dashFunnel').innerHTML=Object.keys(sc).map((k,i)=>`
+    <div class="funnel-step ${cols[i]}"><div class="funnel-step-count">${sc[k]}</div><div class="funnel-step-label">${k}</div></div>`).join('');
+
+  // dept table — show all depts always for reference
+  const showDepts=activeDept?[activeDept]:deptDefs;
+  document.getElementById('dashDeptTable').innerHTML=showDepts.map(d=>{
+    const dr=recruitments.filter(r=>r.dept===d);
+    return`<tr><td style="font-weight:600;">${d}</td>
+      <td>${dr.filter(r=>!['採用','不採用','辞退'].includes(r.status)).length}</td>
+      <td>${dr.filter(r=>r.status==='採用').length}</td>
+      <td>${dr.filter(r=>['不採用','辞退'].includes(r.status)).length}</td></tr>`;
+  }).join('');
+
+  // todos
+  const todos=[];
+  rData.filter(r=>r.status==='応募中').forEach(r=>todos.push({type:'recruit',name:r.name,detail:`${r.dept} • 通電待ち`}));
+  rData.filter(r=>r.status==='面接済').forEach(r=>todos.push({type:'recruit',name:r.name,detail:`${r.dept} • 採否決定待ち`}));
+  obIncomplete.forEach(o=>{
+    const p=checklistDefs.filter(item=>!(o.checklist||{})[item.key]);
+    todos.push({type:'onboard',name:o.name,detail:`${o.dept} • ${p[0]?.label||''}など未完了`});
+  });
+  document.getElementById('dashTodos').innerHTML=todos.length
+    ?todos.slice(0,8).map(t=>`<div class="todo-item ${t.type==='onboard'?'onboarding':''}">
+        <div><div class="todo-name">${t.name}</div><div class="todo-detail">${t.detail}</div></div>
+        <span class="todo-badge ${t.type}">${t.type==='onboard'?'手続き':'選考'}</span>
+      </div>`).join('')
+    :'<div style="padding:20px;text-align:center;color:var(--gray-400);">対応事項なし 🎉</div>';
+}
+
+// ── SETTINGS ──
+function renderSettings(){
+  document.getElementById('settingsChecklistItems').innerHTML=checklistDefs.map((item,i)=>`
+    <div class="settings-item">
+      <span class="settings-item-label">${item.label}</span>
+      <button class="btn btn-outline btn-sm btn-icon" style="font-size:10px;" onclick="moveChecklist(${i},-1)"${i===0?' disabled':''}>▲</button>
+      <button class="btn btn-outline btn-sm btn-icon" style="font-size:10px;" onclick="moveChecklist(${i},1)"${i===checklistDefs.length-1?' disabled':''}>▼</button>
+      <button class="btn btn-outline btn-sm btn-icon" onclick="deleteChecklist(${i})">🗑</button>
+    </div>`).join('');
+  document.getElementById('settingsDepts').innerHTML=deptDefs.map((dept,i)=>`
+    <div class="settings-item">
+      <span class="settings-item-label">${dept}</span>
+      <button class="btn btn-outline btn-sm btn-icon" style="font-size:10px;" onclick="moveDept(${i},-1)"${i===0?' disabled':''}>▲</button>
+      <button class="btn btn-outline btn-sm btn-icon" style="font-size:10px;" onclick="moveDept(${i},1)"${i===deptDefs.length-1?' disabled':''}>▼</button>
+      <button class="btn btn-outline btn-sm btn-icon" onclick="deleteDept(${i})">🗑</button>
+    </div>`).join('');
+}
+function addChecklistItem(){
+  const input=document.getElementById('newChecklistLabel');const label=input.value.trim();
+  if(!label){toast('項目名を入力してください');return;}
+  if(checklistDefs.find(x=>x.label===label)){toast('同じ名前の項目がすでにあります');return;}
+  checklistDefs.push({key:'custom_'+genId(),label});saveData('hope_checklist',checklistDefs);saveToFile();input.value='';renderSettings();toast('項目を追加しました');
+}
+function deleteChecklist(idx){
+  showConfirm('項目を削除',`「${checklistDefs[idx].label}」を削除しますか？`,()=>{
+    checklistDefs.splice(idx,1);saveData('hope_checklist',checklistDefs);saveToFile();renderSettings();toast('削除しました');
+  });
+}
+function moveChecklist(idx,dir){
+  const ni=idx+dir;if(ni<0||ni>=checklistDefs.length)return;
+  [checklistDefs[idx],checklistDefs[ni]]=[checklistDefs[ni],checklistDefs[idx]];
+  saveData('hope_checklist',checklistDefs);saveToFile();renderSettings();
+}
+function addDept(){
+  const input=document.getElementById('newDeptLabel');const label=input.value.trim();
+  if(!label){toast('部門名を入力してください');return;}
+  if(deptDefs.includes(label)){toast('同じ名前の部門がすでにあります');return;}
+  deptDefs.push(label);saveData('hope_depts',deptDefs);saveToFile();input.value='';buildDeptButtons();renderSettings();toast('部門を追加しました');
+}
+function deleteDept(idx){
+  showConfirm('部門を削除',`「${deptDefs[idx]}」を削除しますか？`,()=>{
+    if(activeDept===deptDefs[idx])activeDept='';
+    deptDefs.splice(idx,1);saveData('hope_depts',deptDefs);saveToFile();buildDeptButtons();renderSettings();toast('削除しました');
+  });
+}
+function moveDept(idx,dir){
+  const ni=idx+dir;if(ni<0||ni>=deptDefs.length)return;
+  [deptDefs[idx],deptDefs[ni]]=[deptDefs[ni],deptDefs[idx]];saveData('hope_depts',deptDefs);saveToFile();buildDeptButtons();renderSettings();
+}
+
+// ── DATA BACKUP ──
+function exportAllData(){
+  const data={version:3,exported:new Date().toISOString(),recruitments,onboardings,checklistDefs,deptDefs};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');
+  a.href=url;a.download=`HOPE採用管理バックアップ_${new Date().toLocaleDateString('ja-JP').replace(/\//g,'')}.json`;
+  a.click();URL.revokeObjectURL(url);toast('バックアップをダウンロードしました');
+}
+function importData(){document.getElementById('importFile').click();}
+function doImport(event){
+  const file=event.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=JSON.parse(e.target.result);
+      showConfirm('バックアップから復元','現在のデータを上書きします。よろしいですぎ���',()=>{
+        if(data.recruitments){recruitments=data.recruitments;saveData('hope_recruit',recruitments);}
+        if(data.onboardings){onboardings=data.onboardings;saveData('hope_onboard',onboardings);}
+        if(data.checklistDefs){checklistDefs=data.checklistDefs;saveData('hope_checklist',checklistDefs);}
+        if(data.deptDefs){deptDefs=data.deptDefs;saveData('hope_depts',deptDefs);}
+        buildDeptButtons();renderDashboard();toast('復元しました');
+      });
+    }catch{toast('ファイルの読み込みに失敗しました');}
+  };
+  reader.readAsText(file);event.target.value='';
+}
+function confirmClearAll(){
+  showConfirm('全データをリセット','すべてのデータが削除されます。取り消せません。',()=>{
+    recruitments=[];onboardings=[];saveData('hope_recruit',[]);saveData('hope_onboard',[]);
+    renderDashboard();toast('リセットしました');
+  });
+}
+
+// ── CSV EXPORT ──
+function exportCSV(type){
+  let headers,rows,data;
+  if(type==='recruitment'){
+    data=filterRecruits();
+    headers=['応募日','氏名','年齢','性別','部門','応募職種','応募経路','ステータス','通電日','面接①日','面接②日','入社予定日','辞退・不採用理由','備考'];
+    rows=data.map(r=>[r.date,r.name,r.age,r.gender,r.dept,r.job,r.source,r.status,r.call_date,r.int1_date,r.int2_date,r.join_date,r.reject_reason,r.note]);
+  }else{
+    data=filterOnboards();
+    headers=['氏名','部門','雇用区分','入社日','想定労働時間','想定賃金','雇用保険','社保',...checklistDefs.map(c=>c.label),'備考'];
+    rows=data.map(o=>[o.name,o.dept,o.emp_type,o.join_date,o.hours,o.salary,o.emp_ins,o.social_ins,...checklistDefs.map(c=>(o.checklist||{})[c.key]||''),o.note]);
+  }
+  const csv=[headers,...rows].map(r=>r.map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');
+  a.href=url;a.download=`${type==='recruitment'?'求人管理':'入社手続き'}_${activeDept||'全部門'}_${new Date().toLocaleDateString('ja-JP').replace(/\//g,'')}.csv`;
+  a.click();URL.revokeObjectURL(url);toast('CSVをダギンロードしました');
+}
+
+// ── UI UTILS ──
+function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden';}
+function closeModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow='';}
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2800);}
+function showConfirm(title,msg,cb){document.getElementById('confirmTitle').textContent=title;document.getElementById('confirmMsg').textContent=msg;confirmCallback=cb;document.getElementById('confirmOverlay').classList.add('open');}
+function closeConfirm(){document.getElementById('confirmOverlay').classList.remove('open');confirmCallback=null;}
+document.getElementById('confirmOk').onclick=()=>{if(confirmCallback)confirmCallback();closeConfirm();};
+document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal(m.id);}));
+document.getElementById('confirmOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('confirmOverlay'))closeConfirm();});
+
+// ── INIT ──
+document.getElementById('headerDate').textContent=new Date().toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'short'});
+
+// 初回起動時はデフォルトのチェックリスト・部門を設定
+if(!checklistDefs.length){
+  checklistDefs=[
+    {key:'kot',label:'KOT登録'},{key:'freee',label:'freee登録'},
+    {key:'mynumber',label:'マイナンバー確認'},{key:'fuyou',label:'扶養の有無の確認'},
+    {key:'emp_ins_app',label:'雇用保陹の申請'},{key:'bank',label:'振込口座の確認'},
+    {key:'contract',label:'雇用契約書の締結'},{key:'social_ins',label:'社保の登録'},
+    {key:'pension',label:'退職金共済申込書の登録'}
+  ];
+  saveData('hope_checklist',checklistDefs);
+}
+if(!deptDefs.length){
+  deptDefs=['接骨院','本部','グループホーム','放課後等デイサービス'];
+  saveData('hope_depts',deptDefs);
+}
+checkApiSupport();
+buildDeptButtons();
+renderDashboard();
+
+let fileHandle=null;
+
+function checkApiSupport(){
+  const isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if(isMobile){
+    const sec=document.getElementById('shareSection');
+    if(sec)sec.innerHTML='<div style="padding:12px;background:#fef9c3;border-left:4px solid #ca8a04;border-radius:6px;font-size:13px;color:#713f12;">📱 スマートフォンではデータ共有機能はご利用いただけません。「バックアップから復元」でデータを読み込んでください。</div>';
+    const hint=document.getElementById('mobileDataHint');
+    if(hint)hint.style.display='block';
+    return;
+  }
+  if(!window.showOpenFilePicker){
+    try{document.getElementById('shareApiWarning').style.display='block';}catch(e){}
+    try{document.getElementById('openSharedBtn').disabled=true;}catch(e){}
+    try{document.getElementById('createSharedBtn').disabled=true;}catch(e){}
+    try{document.getElementById('syncBtn').disabled=true;}catch(e){}
+    try{document.getElementById('disconnectBtn').disabled=true;}catch(e){}
+  }
+}
+
+async function openSharedFile(){
+  try{
+    const[handle]=await showOpenFilePicker({types:[{description:'JSON',accept:{'application/json':['.json']}}]});
+    fileHandle=handle;
+    await loadFromFile();
+    updateConnectionStatus();
+    toast('ファイルに接続しました');
+  }catch(e){
+    if(e.name!=='AbortError')console.warn('ファイル選択エラー:',e);
+  }
+}
+
+async function createSharedFile(){
+  try{
+    fileHandle=await showSaveFilePicker({suggestedName:'hope_採用管理データ.json',types:[{description:'JSON',accept:{'application/json':['.json']}}]});
+    await saveToFile();
+    updateConnectionStatus();
+    toast('共有ファイルを作成しました');
+  }catch(e){
+    if(e.name!=='AbortError')console.warn('ファイル作成エラー:',e);
+  }
+}
+
+async function saveToFile(){
+  if(!fileHandle)return;
+  if(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent))return;
+  try{
+    const writable=await fileHandle.createWritable();
+    const data={version:3,lastUpdated:new Date().toISOString(),recruitments,onboardings,checklistDefs,deptDefs};
+    await writable.write(JSON.stringify(data,null,2));
+    await writable.close();
+    updateConnectionStatus();
+  }catch(e){
+    console.warn('ファイル保存エラー:',e);
+  }
+}
+
+async function loadFromFile(){
+  if(!fileHandle)return;
+  try{
+    const file=await fileHandle.getFile();
+    const text=await file.text();
+    const data=JSON.parse(text);
+    if(data.recruitments){recruitments=data.recruitments;saveData('hope_recruit',recruitments);}
+    if(data.onboardings){onboardings=data.onboardings;saveData('hope_onboard',onboardings);}
+    if(data.checklistDefs){checklistDefs=data.checklistDefs;saveData('hope_checklist',checklistDefs);}
+    if(data.deptDefs){deptDefs=data.deptDefs;saveData('hope_depts',deptDefs);}
+    buildDeptButtons();
+    renderDashboard();
+  }catch(e){
+    console.warn('ファイル読み込みエラー:',e);
+    toast('ファイル読み込みに失敗しました');
+  }
+}
+
+async function syncFromFile(){
+  await loadFromFile();
+  toast('同期しました');
+}
+
+function disconnectFile(){
+  fileHandle=null;
+  updateConnectionStatus();
+  toast('接続を解除しました');
+}
+
+function updateConnectionStatus(){
+  const el=document.getElementById('connStatus');
+  if(fileHandle){
+    el.innerHTML<`<span style="color:#16a34a;">● 共有ファイル接続中：${fileHandle.name}</span>`;
+  }else{
+    el.innerHTML=`<span style="color:#9ca3af;">● ローカル保存中</span>`;
+  }
+}
+
+</script>
+</body>
+</html>
