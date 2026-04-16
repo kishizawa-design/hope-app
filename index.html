@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HOPE採用管理システム</title>
+<title>HOPEæ¡ç¨ç®¡çã·ã¹ãã </title>
 <style>
   :root {
     --primary:#2563eb;--primary-dark:#1d4ed8;--primary-light:#eff6ff;
@@ -49,7 +49,7 @@
   .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:20px;}
   .stat-card{background:white;border-radius:var(--radius);padding:18px 22px;box-shadow:var(--shadow);border-left:5px solid var(--primary);cursor:pointer;transition:all 0.15s;position:relative;overflow:hidden;}
   .stat-card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px);}
-  .stat-card::after{content:'→';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--gray-300);transition:all 0.15s;}
+  .stat-card::after{content:'â';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--gray-300);transition:all 0.15s;}
   .stat-card:hover::after{color:var(--primary);right:12px;}
   .stat-card.blue{border-left-color:var(--primary);}
   .stat-card.orange{border-left-color:var(--warning);}
@@ -109,13 +109,13 @@
   /* Inline status select */
   .status-select{padding:4px 8px;border:1px solid var(--gray-300);border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;background:white;}
   .status-select:focus{outline:none;}
-  .status-select.s-応募中{background:#e0e7ff;color:#3730a3;border-color:#a5b4fc;}
-  .status-select.s-連絡済{background:#fef3c7;color:#92400e;border-color:#fcd34d;}
-  .status-select.s-面接予定{background:#dbeafe;color:#1e40af;border-color:#93c5fd;}
-  .status-select.s-面接済{background:#cffafe;color:#155e75;border-color:#67e8f9;}
-  .status-select.s-採用{background:#dcfce7;color:#166534;border-color:#86efac;}
-  .status-select.s-不採用{background:#fee2e2;color:#991b1b;border-color:#fca5a5;}
-  .status-select.s-辞退{background:#f3f4f6;color:#4b5563;border-color:#d1d5db;}
+  .status-select.s-å¿åä¸­{background:#e0e7ff;color:#3730a3;border-color:#a5b4fc;}
+  .status-select.s-é£çµ¡æ¸{background:#fef3c7;color:#92400e;border-color:#fcd34d;}
+  .status-select.s-é¢æ¥äºå®{background:#dbeafe;color:#1e40af;border-color:#93c5fd;}
+  .status-select.s-é¢æ¥æ¸{background:#cffafe;color:#155e75;border-color:#67e8f9;}
+  .status-select.s-æ¡ç¨{background:#dcfce7;color:#166534;border-color:#86efac;}
+  .status-select.s-ä¸æ¡ç¨{background:#fee2e2;color:#991b1b;border-color:#fca5a5;}
+  .status-select.s-è¾é{background:#f3f4f6;color:#4b5563;border-color:#d1d5db;}
 
   /* Inline date input */
   .inline-date{padding:4px 7px;border:1px solid var(--gray-200);border-radius:5px;font-size:12px;color:var(--gray-700);background:white;cursor:pointer;min-width:115px;}
@@ -229,25 +229,25 @@
 </head>
 <body>
 
-<!-- パスワード画面 -->
+<!-- ãã¹ã¯ã¼ãç»é¢ -->
 <div id="pwScreen" style="display:flex;position:fixed;inset:0;background:#1e40af;z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:20px;">
   <div style="text-align:center;color:white;margin-bottom:10px;">
-    <div style="font-size:32px;margin-bottom:8px;">🏥</div>
-    <div style="font-size:22px;font-weight:700;">HOPE採用管理システム</div>
-    <div style="font-size:13px;opacity:0.7;margin-top:4px;">パスワードを入力してください</div>
+    <div style="font-size:32px;margin-bottom:8px;">ð¥</div>
+    <div style="font-size:22px;font-weight:700;">HOPEæ¡ç¨ç®¡çã·ã¹ãã </div>
+    <div style="font-size:13px;opacity:0.7;margin-top:4px;">ãã¹ã¯ã¼ããå¥åãã¦ãã ãã</div>
   </div>
   <div style="background:white;border-radius:12px;padding:28px;width:90%;max-width:340px;box-shadow:0 20px 40px rgba(0,0,0,0.3);">
-    <input id="pwInput" type="password" placeholder="パスワード"
+    <input id="pwInput" type="password" placeholder="ãã¹ã¯ã¼ã"
       style="width:100%;padding:12px 14px;border:2px solid #e5e7eb;border-radius:8px;font-size:16px;outline:none;margin-bottom:12px;box-sizing:border-box;"
       onkeydown="if(event.key==='Enter')checkPw()"
       onfocus="this.style.borderColor='#2563eb'"
       onblur="this.style.borderColor='#e5e7eb'">
     <button onclick="checkPw()"
       style="width:100%;padding:12px;background:#2563eb;color:white;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;">
-      ログイン
+      ã­ã°ã¤ã³
     </button>
     <div id="pwError" style="color:#dc2626;font-size:12px;margin-top:8px;text-align:center;display:none;">
-      パスワードが違います
+      ãã¹ã¯ã¼ããéãã¾ã
     </div>
   </div>
 </div>
@@ -255,23 +255,23 @@
 
 <header class="app-header">
   <div>
-    <div class="app-logo">🏥 HOPE採用管理システム</div>
-  <div id="connStatus" style="font-size:12px;margin-left:auto;color:#9ca3af;">● ローカル保存中</div>
-    <div class="app-sub">接骨院・グループホーム・放課後等デイサービス・本部</div>
+    <div class="app-logo" style="display:flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 235" height="46" style="vertical-align:middle;margin-right:6px;flex-shrink:0"><polyline points="145.0,55.0 148.1,58.8 150.5,63.0 152.0,67.6 152.6,72.3 152.5,77.0 151.6,81.5 150.1,85.8 148.0,89.7 145.4,93.3 142.5,96.4 139.3,99.1 136.0,101.4 132.5,103.3 128.9,105.0 125.3,106.3 121.7,107.3 118.1,108.1 114.5,108.8 111.0,109.2 107.4,109.6 103.9,109.8 100.4,109.9 96.9,110.0 93.5,110.0 90.0,110.0 86.5,110.0 83.1,110.0 79.6,110.1 76.1,110.2 72.6,110.4 69.0,110.8 65.5,111.2 61.9,111.9 58.3,112.7 54.7,113.7 51.1,115.0 47.5,116.7 44.0,118.6 40.7,120.9 37.5,123.6 34.6,126.7 32.0,130.3 29.9,134.2 28.4,138.5 27.5,143.0 27.4,147.7 28.0,152.4 29.5,157.0 31.9,161.2 35.0,165.0 38.8,168.1 43.0,170.5 47.6,172.0 52.3,172.6 57.0,172.5 61.5,171.6 65.8,170.1 69.7,168.0 73.3,165.4 76.4,162.5 79.1,159.3 81.4,156.0 83.3,152.5 85.0,148.9 86.3,145.3 87.3,141.7 88.1,138.1 88.8,134.5 89.2,131.0 89.6,127.4 89.8,123.9 89.9,120.4 90.0,116.9 90.0,113.5 90.0,110.0 90.0,106.5 90.0,103.1 90.1,99.6 90.2,96.1 90.4,92.6 90.8,89.0 91.2,85.5 91.9,81.9 92.7,78.3 93.7,74.7 95.0,71.1 96.7,67.5 98.6,64.0 100.9,60.7 103.6,57.5 106.7,54.6 110.3,52.0 114.2,49.9 118.5,48.4 123.0,47.5 127.7,47.4 132.4,48.0 137.0,49.5 141.2,51.9" fill="none" stroke="#1875bb" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/><circle cx="145.0" cy="55.0" r="11" fill="#1875bb"/><circle cx="35.0" cy="165.0" r="11" fill="#1875bb"/><text x="90" y="228" text-anchor="middle" font-family="Helvetica Neue,Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#888" letter-spacing="7">HOPE</text></svg><span style="font-size:15px">採用管理システム</span></div>
+  <div id="connStatus" style="font-size:12px;margin-left:auto;color:#9ca3af;">â ã­ã¼ã«ã«ä¿å­ä¸­</div>
+    <div class="app-sub">æ¥éª¨é¢ã»ã°ã«ã¼ããã¼ã ã»æ¾èª²å¾ç­ãã¤ãµã¼ãã¹ã»æ¬é¨</div>
   </div>
   <div style="font-size:12px;opacity:0.7;" id="headerDate"></div>
 </header>
 
 <nav class="nav-bar">
-  <div class="nav-tab active" onclick="switchPage('dashboard')">📊 ダッシュボード</div>
-  <div class="nav-tab" onclick="switchPage('recruitment')">📋 求人管理</div>
-  <div class="nav-tab" onclick="switchPage('onboarding')">✅ 入社手続き</div>
-  <div class="nav-tab" onclick="switchPage('settings')">⚙️ 設定</div>
+  <div class="nav-tab active" onclick="switchPage('dashboard')">ð ããã·ã¥ãã¼ã</div>
+  <div class="nav-tab" onclick="switchPage('recruitment')">ð æ±äººç®¡ç</div>
+  <div class="nav-tab" onclick="switchPage('onboarding')">â å¥ç¤¾æç¶ã</div>
+  <div class="nav-tab" onclick="switchPage('settings')">âï¸ è¨­å®</div>
 </nav>
 
 <!-- GLOBAL DEPT FILTER -->
 <div class="dept-filter-bar">
-  <span class="dept-filter-label">📌 表示部門：</span>
+  <span class="dept-filter-label">ð è¡¨ç¤ºé¨éï¼</span>
   <div id="deptButtons"></div>
 </div>
 
@@ -282,26 +282,26 @@
   <div class="stats-grid" id="dashStats"></div>
   <div class="week-schedule">
     <div class="week-header">
-      📅 直近1週間のスケジュール
+      ð ç´è¿1é±éã®ã¹ã±ã¸ã¥ã¼ã«
       <div class="week-legend">
-        <div class="week-legend-item"><div class="week-legend-dot" style="background:#3b82f6;"></div>面接</div>
-        <div class="week-legend-item"><div class="week-legend-dot" style="background:#22c55e;"></div>初出勤</div>
+        <div class="week-legend-item"><div class="week-legend-dot" style="background:#3b82f6;"></div>é¢æ¥</div>
+        <div class="week-legend-item"><div class="week-legend-dot" style="background:#22c55e;"></div>ååºå¤</div>
       </div>
     </div>
     <div class="week-grid" id="weekGrid"></div>
   </div>
-  <div class="dash-section-title">📈 採用ファネル</div>
+  <div class="dash-section-title">ð æ¡ç¨ãã¡ãã«</div>
   <div class="funnel" id="dashFunnel"></div>
   <div class="dash-row">
     <div>
-      <div class="dash-section-title">🏢 部門別応募状況</div>
+      <div class="dash-section-title">ð¢ é¨éå¥å¿åç¶æ³</div>
       <div class="card"><div class="table-wrap"><table class="dept-table">
-        <thead><tr><th>部門</th><th>選考中</th><th>採用</th><th>不採用/辞退</th></tr></thead>
+        <thead><tr><th>é¨é</th><th>é¸èä¸­</th><th>æ¡ç¨</th><th>ä¸æ¡ç¨/è¾é</th></tr></thead>
         <tbody id="dashDeptTable"></tbody>
       </table></div></div>
     </div>
     <div>
-      <div class="dash-section-title">⚠️ 対応が必要な事項</div>
+      <div class="dash-section-title">â ï¸ å¯¾å¿ãå¿è¦ãªäºé </div>
       <div class="todo-list" id="dashTodos"></div>
     </div>
   </div>
@@ -312,28 +312,28 @@
   <div class="card">
     <div class="card-header">
       <div>
-        <div class="card-title">求人管理（応募〜採用フロー）</div>
+        <div class="card-title">æ±äººç®¡çï¼å¿åãæ¡ç¨ãã­ã¼ï¼</div>
         <div id="recruitDeptLabel" style="font-size:12px;color:var(--gray-500);margin-top:2px;"></div>
       </div>
       <div style="display:flex;gap:8px;">
-        <button class="btn btn-outline btn-sm" onclick="exportCSV('recruitment')">📥 CSV出力</button>
-        <button class="btn btn-primary" onclick="openRecruitModal(null)">＋ 応募者追加</button>
+        <button class="btn btn-outline btn-sm" onclick="exportCSV('recruitment')">ð¥ CSVåºå</button>
+        <button class="btn btn-primary" onclick="openRecruitModal(null)">ï¼ å¿åèè¿½å </button>
       </div>
     </div>
     <div class="filter-bar">
-      <span class="filter-label">絞り込み：</span>
+      <span class="filter-label">çµãè¾¼ã¿ï¼</span>
       <select id="rFilterStatus" onchange="renderRecruitTable()">
-        <option value="">全ステータス</option>
-        <option>応募中</option><option>連絡済</option><option>面接予定</option>
-        <option>面接済</option><option>採用</option><option>不採用</option><option>辝退</option>
+        <option value="">å¨ã¹ãã¼ã¿ã¹</option>
+        <option>å¿åä¸­</option><option>é£çµ¡æ¸</option><option>é¢æ¥äºå®</option>
+        <option>é¢æ¥æ¸</option><option>æ¡ç¨</option><option>ä¸æ¡ç¨</option><option>è¾é</option>
       </select>
-      <input type="text" id="rFilterSearch" placeholder="氏名・職種で検索..." oninput="renderRecruitTable()" style="min-width:180px;">
+      <input type="text" id="rFilterSearch" placeholder="æ°åã»è·ç¨®ã§æ¤ç´¢..." oninput="renderRecruitTable()" style="min-width:180px;">
     </div>
     <div class="table-wrap">
       <table>
         <thead><tr>
-          <th>応募日</th><th>氏名</th><th>部門</th><th>応募職種</th><th>応募経路</th>
-          <th>ステータス</th><th>面接日</th><th>入社予定日</th><th style="width:110px;"></th>
+          <th>å¿åæ¥</th><th>æ°å</th><th>é¨é</th><th>å¿åè·ç¨®</th><th>å¿åçµè·¯</th>
+          <th>ã¹ãã¼ã¿ã¹</th><th>é¢æ¥æ¥</th><th>å¥ç¤¾äºå®æ¥</th><th style="width:110px;"></th>
         </tr></thead>
         <tbody id="recruitTbody"></tbody>
       </table>
@@ -346,28 +346,28 @@
   <div class="card">
     <div class="card-header">
       <div>
-        <div class="card-title">入社手続き管理（採用決定〜手続き完了）</div>
+        <div class="card-title">å¥ç¤¾æç¶ãç®¡çï¼æ¡ç¨æ±ºå®ãæç¶ãå®äºï¼</div>
         <div id="onboardDeptLabel" style="font-size:12px;color:var(--gray-500);margin-top:2px;"></div>
       </div>
       <div style="display:flex;gap:8px;">
-        <button class="btn btn-outline btn-sm" onclick="exportCSV('onboarding')">📥 CSV出力</button>
-        <button class="btn btn-primary" onclick="openOnboardModal(null)">＋ 手続き対象者追加</button>
+        <button class="btn btn-outline btn-sm" onclick="exportCSV('onboarding')">ð¥ CSVåºå</button>
+        <button class="btn btn-primary" onclick="openOnboardModal(null)">ï¼ æç¶ãå¯¾è±¡èè¿½å </button>
       </div>
     </div>
     <div class="filter-bar">
-      <span class="filter-label">絞り込み：</span>
+      <span class="filter-label">çµãè¾¼ã¿ï¼</span>
       <select id="oFilterStatus" onchange="renderOnboardTable()">
-        <option value="">全ステータス</option>
-        <option value="incomplete">手続き中</option>
-        <option value="complete">完了</option>
+        <option value="">å¨ã¹ãã¼ã¿ã¹</option>
+        <option value="incomplete">æç¶ãä¸­</option>
+        <option value="complete">å®äº</option>
       </select>
-      <input type="text" id="oFilterSearch" placeholder="氏名で検索..." oninput="renderOnboardTable()" style="min-width:180px;">
+      <input type="text" id="oFilterSearch" placeholder="æ°åã§æ¤ç´¢..." oninput="renderOnboardTable()" style="min-width:180px;">
     </div>
     <div class="table-wrap">
       <table>
         <thead><tr>
-          <th>氏名</th><th>部門</th><th>雇用区分</th><th>入社日（予定）</th>
-          <th>手続き進捗</th><th>未完了事項</th><th style="width:90px;"></th>
+          <th>æ°å</th><th>é¨é</th><th>éç¨åºå</th><th>å¥ç¤¾æ¥ï¼äºå®ï¼</th>
+          <th>æç¶ãé²æ</th><th>æªå®äºäºé </th><th style="width:90px;"></th>
         </tr></thead>
         <tbody id="onboardTbody"></tbody>
       </table>
@@ -378,46 +378,49 @@
 <!-- SETTINGS -->
 <div class="page" id="page-settings">
   <div id="shareSection" style="margin-bottom:30px;padding:18px;background:#f0f9ff;border-left:4px solid #0284c7;border-radius:6px;">
-    <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;color:#0c4a6e;">📊 データ共有設定</h3>
-    <p style="font-size:12px;color:#475569;margin-bottom:15px;line-height:1.6;">複数のメンバーでデータを共有できます。<br><strong style="color:#0c4a6e;">代表者が新規ファイルを作成 → メンバーが同じファイルに接続</strong>という流れで使用できます。</p>
+    <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;color:#0c4a6e;">ð ãã¼ã¿å±æè¨­å®</h3>
+    <p style="font-size:12px;color:#475569;margin-bottom:15px;line-height:1.6;">è¤æ°ã®ã¡ã³ãã¼ã§ãã¼ã¿ãå±æã§ãã¾ãã<br><strong style="color:#0c4a6e;">ä»£è¡¨èãæ°è¦ãã¡ã¤ã«ãä½æ â ã¡ã³ãã¼ãåããã¡ã¤ã«ã«æ¥ç¶</strong>ã¨ããæµãã§ä½¿ç¨ã§ãã¾ãã</p>
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px;">
-      <button class="btn btn-primary" onclick="openSharedFile()" id="openSharedBtn">📂 既存ファイルに接続</button>
-      <button class="btn btn-success" onclick="createSharedFile()" id="createSharedBtn">🆕 新規共有ファイルを作成</button>
-      <button class="btn btn-outline" onclick="syncFromFile()" id="syncBtn">🔄 今すぐ同期</button>
-      <button class="btn btn-outline" onclick="disconnectFile()" id="disconnectBtn">❌ 接続を解除</button>
+      <button class="btn btn-primary" onclick="openSharedFile()" id="openSharedBtn">ð æ¢å­ãã¡ã¤ã«ã«æ¥ç¶</button>
+      <button class="btn btn-success" onclick="createSharedFile()" id="createSharedBtn">ð æ°è¦å±æãã¡ã¤ã«ãä½æ</button>
+      <button class="btn btn-outline" onclick="syncFromFile()" id="syncBtn">ð ä»ããåæ</button>
+      <button class="btn btn-outline" onclick="disconnectFile()" id="disconnectBtn">â æ¥ç¶ãè§£é¤</button>
     </div>
-    <div id="shareApiWarning" style="display:none;font-size:12px;color:#c2255c;background:#ffe4e6;padding:10px;border-radius:4px;margin-bottom:10px;">⚠️ このブラウザはFile System Access APIに対応していません。Chrome/Edgeをご使用ください</div>
-    <div style="font-size:11px;color:#64748b;background:white;padding:12px;border-radius:4px;border:1px solid #e2e8f0;"><strong style="color:#334155;">【共有の手順】</strong><br>1. 代表者が「新規共有ファイルを作成」 → Googleドライブなど共有フォルダにファイル保存<br>2. 他のメンバーは「既存ファイルに接続」 → 同じファイルを選択<br>3. データを変更すると自動でファイルに保存されます<br><span style="color:#ef4444;">⚠️ 複数人の同時編集は上書きされる場合があります。同時編集は避けてください。</span></div>
+    <div id="shareApiWarning" style="display:none;font-size:12px;color:#c2255c;background:#ffe4e6;padding:10px;border-radius:4px;margin-bottom:10px;">â ï¸ ãã®ãã©ã¦ã¶ã¯File System Access APIã«å¯¾å¿ãã¦ãã¾ãããChrome/Edgeããä½¿ç¨ãã ãã</div>
+    <div style="font-size:11px;color:#64748b;background:white;padding:12px;border-radius:4px;border:1px solid #e2e8f0;"><strong style="color:#334155;">ãå±æã®æé ã</strong><br>1. ä»£è¡¨èããæ°è¦å±æãã¡ã¤ã«ãä½æã â Googleãã©ã¤ããªã©å±æãã©ã«ãã«ãã¡ã¤ã«ä¿å­<br>2. ä»ã®ã¡ã³ãã¼ã¯ãæ¢å­ãã¡ã¤ã«ã«æ¥ç¶ã â åããã¡ã¤ã«ãé¸æ<br>3. ãã¼ã¿ãå¤æ´ããã¨èªåã§ãã¡ã¤ã«ã«ä¿å­ããã¾ã<br><span style="color:#ef4444;">â ï¸ è¤æ°äººã®åæç·¨éã¯ä¸æ¸ããããå ´åãããã¾ããåæç·¨éã¯é¿ãã¦ãã ããã</span></div>
   </div>
   <div class="settings-section">
-    <div class="settings-title">✅ 手続きチェックリスト訁目</div>
-    <p style="font-size:13px;color:var(--gray-500);margin-bottom:12px;">入社手続きのチェック項目を追加・削除・並び替えできます。</p>
+    <div class="settings-title">â æç¶ããã§ãã¯ãªã¹ãè¨ç®</div>
+    <p style="font-size:13px;color:var(--gray-500);margin-bottom:12px;">å¥ç¤¾æç¶ãã®ãã§ãã¯é ç®ãè¿½å ã»åé¤ã»ä¸¦ã³æ¿ãã§ãã¾ãã</p>
     <div id="settingsChecklistItems"></div>
     <div class="add-item-row">
-      <input type="text" id="newChecklistLabel" placeholder="新しい項目名（例：健康診断の実施）" onkeydown="if(event.key==='Enter')addChecklistItem()">
-      <button class="btn btn-primary" onclick="addChecklistItem()">＋ 追加</button>
+      <input type="text" id="newChecklistLabel" placeholder="æ°ããé ç®åï¼ä¾ï¼å¥åº·è¨ºæ­ã®å®æ½ï¼" onkeydown="if(event.key==='Enter')addChecklistItem()">
+      <button class="btn btn-primary" onclick="addChecklistItem()">ï¼ è¿½å </button>
     </div>
   </div>
   <div class="settings-section">
-    <div class="settings-title">🏢 部門設定</div>
-    <p style="font-size:13px;color:var(--gray-500);margin-bottom:12px;">部門を追加・削除・並び替えできます。変更はすぐに部門フィルターに反映されます。</p>
+    <div class="settings-title">ð¢ é¨éè¨­å®</div>
+    <p style="font-size:13px;color:var(--gray-500);margin-bottom:12px;">é¨éãè¿½å ã»åé¤ã»ä¸¦ã³æ¿ãã§ãã¾ããå¤æ´ã¯ããã«é¨éãã£ã«ã¿ã¼ã«åæ ããã¾ãã</p>
     <div id="settingsDepts"></div>
     <div class="add-item-row">
-      <input type="text" id="newDeptLabel" placeholder="新しい部門名" onkeydown="if(event.key==='Enter')addDept()">
-      <button class="btn btn-primary" onclick="addDept()">＋ 追加</button>
+      <input type="text" id="newDeptLabel" placeholder="æ°ããé¨éå" onkeydown="if(event.key==='Enter')addDept()">
+      <button class="btn btn-primary" onclick="addDept()">ï¼ è¿½å </button>
     </div>
   </div>
   <div class="settings-section">
-    <div class="settings-title">📂 データ管理・同期</div>
+    <div class="settings-title">ð ãã¼ã¿ç®¡çã»åæ</div>
     <div id="mobileDataHint" style="display:none;padding:12px;background:#f0f9ff;border-left:4px solid #0284c7;border-radius:6px;margin-bottom:12px;font-size:13px;line-height:1.6;">
-      📱 <strong>スマートフォンでのデータ同期方法</strong><br>
-      PCで「全データをバックアップ」→ JSONファイルをGoogleドライブに保存<br>
-      スマホで → 「バックアップから復元」→ そはJSONファイルを選択
+      ð± <strong>ã¹ãã¼ããã©ã³ã§ã®ãã¼ã¿åææ¹æ³</strong><br>
+      PCã§ãå¨ãã¼ã¿ãããã¯ã¢ãããâ JSONãã¡ã¤ã«ãGoogleãã©ã¤ãã«ä¿å­<br>
+      ã¹ããã§ â ãããã¯ã¢ããããå¾©åãâ ãã¯JSONãã¡ã¤ã«ãé¸æ
     </div>
     <div style="display:flex;gap:12px;flex-wrap:wrap;">
-      <button class="btn btn-outline" onclick="exportAllData()">💾 全データをバックアップ</button>
-      <button class="btn btn-outline" onclick="importData()">📂 バックアップから復元</button>
-      <button class="btn btn-danger btn-sm" onclick="confirmClearAll()">⚠ 全データをリセット</button>
+      <button class="btn btn-outline" onclick="exportAllData()">ð¾ å¨ãã¼ã¿ãããã¯ã¢ãã</button>
+      <button class="btn btn-outline" onclick="importData()">ð ããã¯ã¢ããããå¾©å</button>
+      <button class="btn btn-outline" onclick="ghLoad()">🔄 GH読込</button>
+      <button class="btn btn-outline" onclick="ghSave()">☁️ GH保存</button>
+      <button class="btn btn-outline" onclick="showGhM()">⚙️ GH設定</button>
+      <button class="btn btn-danger btn-sm" onclick="confirmClearAll()">â  å¨ãã¼ã¿ããªã»ãã</button>
     </div>
     <input type="file" id="importFile" accept=".json" style="display:none" onchange="doImport(event)">
   </div>
@@ -429,43 +432,43 @@
 <div class="modal-overlay" id="recruitModal">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title" id="recruitModalTitle">応募者を追加</div>
-      <button class="modal-close" onclick="closeModal('recruitModal')">✕</button>
+      <div class="modal-title" id="recruitModalTitle">å¿åèãè¿½å </div>
+      <button class="modal-close" onclick="closeModal('recruitModal')">â</button>
     </div>
     <div class="modal-body">
       <div class="form-grid">
-        <div class="form-group"><label class="form-label">応募日 <span class="req">*</span></label><input type="date" class="form-control" id="r_date"></div>
-        <div class="form-group"><label class="form-label">氏名 <span class="req">*</span></label><input type="text" class="form-control" id="r_name" placeholder="例：山田 太郎"></div>
-        <div class="form-group"><label class="form-label">年齢</label><input type="number" class="form-control" id="r_age" placeholder="35"></div>
-        <div class="form-group"><label class="form-label">性別</label>
-          <select class="form-control" id="r_gender"><option value="">選択</option><option>男性</option><option>女性</option><option>その他</option></select></div>
-        <div class="form-group"><label class="form-label">部門 <span class="req">*</span></label><select class="form-control" id="r_dept"></select></div>
-        <div class="form-group"><label class="form-label">応募職種</label><input type="text" class="form-control" id="r_job" placeholder="例：児童指導員"></div>
-        <div class="form-group"><label class="form-label">応募経路</label>
-          <select class="form-control" id="r_source"><option value="">選択</option><option>Indeed</option><option>タイミー</option><option>ハローワーク</option><option>紹介</option><option>タウンワーク</option><option>自社HP</option><option>その他</option></select></div>
-        <div class="form-group"><label class="form-label">ステータス <span class="req">*</span></label>
-          <select class="form-control" id="r_status"><option>応募中</option><option>連絡済</option><option>面接予定</option><option>面接済</option><option>採用</option><option>不採用</option><option>辞退</option></select></div>
+        <div class="form-group"><label class="form-label">å¿åæ¥ <span class="req">*</span></label><input type="date" class="form-control" id="r_date"></div>
+        <div class="form-group"><label class="form-label">æ°å <span class="req">*</span></label><input type="text" class="form-control" id="r_name" placeholder="ä¾ï¼å±±ç° å¤ªé"></div>
+        <div class="form-group"><label class="form-label">å¹´é½¢</label><input type="number" class="form-control" id="r_age" placeholder="35"></div>
+        <div class="form-group"><label class="form-label">æ§å¥</label>
+          <select class="form-control" id="r_gender"><option value="">é¸æ</option><option>ç·æ§</option><option>å¥³æ§</option><option>ãã®ä»</option></select></div>
+        <div class="form-group"><label class="form-label">é¨é <span class="req">*</span></label><select class="form-control" id="r_dept"></select></div>
+        <div class="form-group"><label class="form-label">å¿åè·ç¨®</label><input type="text" class="form-control" id="r_job" placeholder="ä¾ï¼åç«¥æå°å¡"></div>
+        <div class="form-group"><label class="form-label">å¿åçµè·¯</label>
+          <select class="form-control" id="r_source"><option value="">é¸æ</option><option>Indeed</option><option>ã¿ã¤ãã¼</option><option>ãã­ã¼ã¯ã¼ã¯</option><option>ç´¹ä»</option><option>ã¿ã¦ã³ã¯ã¼ã¯</option><option>èªç¤¾HP</option><option>ãã®ä»</option></select></div>
+        <div class="form-group"><label class="form-label">ã¹ãã¼ã¿ã¹ <span class="req">*</span></label>
+          <select class="form-control" id="r_status"><option>å¿åä¸­</option><option>é£çµ¡æ¸</option><option>é¢æ¥äºå®</option><option>é¢æ¥æ¸</option><option>æ¡ç¨</option><option>ä¸æ¡ç¨</option><option>è¾é</option></select></div>
       </div>
       <div class="form-section">
-        <div class="form-section-title">📅 日程</div>
+        <div class="form-section-title">ð æ¥ç¨</div>
         <div class="form-grid">
-          <div class="form-group"><label class="form-label">通電日</label><input type="date" class="form-control" id="r_call_date"></div>
-          <div class="form-group"><label class="form-label">面接①日</label><input type="date" class="form-control" id="r_int1_date"></div>
-          <div class="form-group"><label class="form-label">面接②日</label><input type="date" class="form-control" id="r_int2_date"></div>
-          <div class="form-group"><label class="form-label">入社予定日</label><input type="date" class="form-control" id="r_join_date"></div>
+          <div class="form-group"><label class="form-label">éé»æ¥</label><input type="date" class="form-control" id="r_call_date"></div>
+          <div class="form-group"><label class="form-label">é¢æ¥â æ¥</label><input type="date" class="form-control" id="r_int1_date"></div>
+          <div class="form-group"><label class="form-label">é¢æ¥â¡æ¥</label><input type="date" class="form-control" id="r_int2_date"></div>
+          <div class="form-group"><label class="form-label">å¥ç¤¾äºå®æ¥</label><input type="date" class="form-control" id="r_join_date"></div>
         </div>
       </div>
       <div class="form-section">
-        <div class="form-section-title">📝 メモ</div>
+        <div class="form-section-title">ð ã¡ã¢</div>
         <div class="form-grid single">
-          <div class="form-group"><label class="form-label">辞退・不採用理由</label><input type="text" class="form-control" id="r_reject_reason" placeholder="該当する場合"></div>
-          <div class="form-group"><label class="form-label">備考・候補者メモ</label><textarea class="form-control" id="r_note" placeholder="経歴・特記事項など"></textarea></div>
+          <div class="form-group"><label class="form-label">è¾éã»ä¸æ¡ç¨çç±</label><input type="text" class="form-control" id="r_reject_reason" placeholder="è©²å½ããå ´å"></div>
+          <div class="form-group"><label class="form-label">åèã»åè£èã¡ã¢</label><textarea class="form-control" id="r_note" placeholder="çµæ­´ã»ç¹è¨äºé ãªã©"></textarea></div>
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeModal('recruitModal')">キャンセル</button>
-      <button class="btn btn-primary" onclick="saveRecruit()">保存</button>
+      <button class="btn btn-outline" onclick="closeModal('recruitModal')">ã­ã£ã³ã»ã«</button>
+      <button class="btn btn-primary" onclick="saveRecruit()">ä¿å­</button>
     </div>
   </div>
 </div>
@@ -474,47 +477,47 @@
 <div class="modal-overlay" id="onboardModal">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title" id="onboardModalTitle">入社手続き対象者を追加</div>
-      <button class="modal-close" onclick="closeModal('onboardModal')">✕</button>
+      <div class="modal-title" id="onboardModalTitle">å¥ç¤¾æç¶ãå¯¾è±¡èãè¿½å </div>
+      <button class="modal-close" onclick="closeModal('onboardModal')">â</button>
     </div>
     <div class="modal-body">
       <div class="form-grid">
-        <div class="form-group"><label class="form-label">氏名 <span class="req">*</span></label><input type="text" class="form-control" id="o_name" placeholder="例：山田 太郎"></div>
-        <div class="form-group"><label class="form-label">部門 <span class="req">*</span></label><select class="form-control" id="o_dept"></select></div>
-        <div class="form-group"><label class="form-label">入社日（予定） <span class="req">*</span></label><input type="date" class="form-control" id="o_join_date"></div>
-        <div class="form-group"><label class="form-label">雇用区分</label>
-          <select class="form-control" id="o_emp_type"><option value="">選択</option><option>社員</option><option>パート</option><option>短時間夜勤</option><option>長時間夜勤</option><option>アルバイト</option><option>契約社員</option></select></div>
-        <div class="form-group"><label class="form-label">想定労働時間（時間/月）</label><input type="number" class="form-control" id="o_hours" placeholder="80"></div>
-        <div class="form-group"><label class="form-label">想定賃金（円/月）</label><input type="number" class="form-control" id="o_salary" placeholder="150000"></div>
-        <div class="form-group"><label class="form-label">雇用保険の有無</label>
-          <select class="form-control" id="o_emp_ins"><option value="">選択</option><option>有</option><option>なし</option></select></div>
-        <div class="form-group"><label class="form-label">社会保険の有無</label>
-          <select class="form-control" id="o_social_ins"><option value="">選択</option><option>有</option><option>なし</option></select></div>
-        <div class="form-group"><label class="form-label">就労開始日時</label><input type="datetime-local" class="form-control" id="o_start_dt"></div>
-        <div class="form-group"><label class="form-label">契約終了日</label><input type="date" class="form-control" id="o_contract_end"></div>
+        <div class="form-group"><label class="form-label">æ°å <span class="req">*</span></label><input type="text" class="form-control" id="o_name" placeholder="ä¾ï¼å±±ç° å¤ªé"></div>
+        <div class="form-group"><label class="form-label">é¨é <span class="req">*</span></label><select class="form-control" id="o_dept"></select></div>
+        <div class="form-group"><label class="form-label">å¥ç¤¾æ¥ï¼äºå®ï¼ <span class="req">*</span></label><input type="date" class="form-control" id="o_join_date"></div>
+        <div class="form-group"><label class="form-label">éç¨åºå</label>
+          <select class="form-control" id="o_emp_type"><option value="">é¸æ</option><option>ç¤¾å¡</option><option>ãã¼ã</option><option>ç­æéå¤å¤</option><option>é·æéå¤å¤</option><option>ã¢ã«ãã¤ã</option><option>å¥ç´ç¤¾å¡</option></select></div>
+        <div class="form-group"><label class="form-label">æ³å®å´åæéï¼æé/æï¼</label><input type="number" class="form-control" id="o_hours" placeholder="80"></div>
+        <div class="form-group"><label class="form-label">æ³å®è³éï¼å/æï¼</label><input type="number" class="form-control" id="o_salary" placeholder="150000"></div>
+        <div class="form-group"><label class="form-label">éç¨ä¿éºã®æç¡</label>
+          <select class="form-control" id="o_emp_ins"><option value="">é¸æ</option><option>æ</option><option>ãªã</option></select></div>
+        <div class="form-group"><label class="form-label">ç¤¾ä¼ä¿éºã®æç¡</label>
+          <select class="form-control" id="o_social_ins"><option value="">é¸æ</option><option>æ</option><option>ãªã</option></select></div>
+        <div class="form-group"><label class="form-label">å°±å´éå§æ¥æ</label><input type="datetime-local" class="form-control" id="o_start_dt"></div>
+        <div class="form-group"><label class="form-label">å¥ç´çµäºæ¥</label><input type="date" class="form-control" id="o_contract_end"></div>
       </div>
       <div class="form-section">
-        <div class="form-section-title">✅ 手続きチェックリスト</div>
+        <div class="form-section-title">â æç¶ããã§ãã¯ãªã¹ã</div>
         <div class="checklist-grid" id="checklistItems"></div>
       </div>
       <div class="form-section">
-        <div class="form-section-title">📝 備考</div>
-        <div class="form-group"><textarea class="form-control" id="o_note" placeholder="特記事項など"></textarea></div>
+        <div class="form-section-title">ð åè</div>
+        <div class="form-group"><textarea class="form-control" id="o_note" placeholder="ç¹è¨äºé ãªã©"></textarea></div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeModal('onboardModal')">キャンセル</button>
-      <button class="btn btn-primary" onclick="saveOnboard()">保存</button>
+      <button class="btn btn-outline" onclick="closeModal('onboardModal')">ã­ã£ã³ã»ã«</button>
+      <button class="btn btn-primary" onclick="saveOnboard()">ä¿å­</button>
     </div>
   </div>
 </div>
 
 <div class="confirm-overlay" id="confirmOverlay">
   <div class="confirm-box">
-    <h3 id="confirmTitle">確認</h3><p id="confirmMsg"></p>
+    <h3 id="confirmTitle">ç¢ºèª</h3><p id="confirmMsg"></p>
     <div class="confirm-actions">
-      <button class="btn btn-outline" onclick="closeConfirm()">キャンセル</button>
-      <button class="btn btn-danger" id="confirmOk">実行する</button>
+      <button class="btn btn-outline" onclick="closeConfirm()">ã­ã£ã³ã»ã«</button>
+      <button class="btn btn-danger" id="confirmOk">å®è¡ãã</button>
     </div>
   </div>
 </div>
@@ -522,8 +525,8 @@
 
 <script>
 
-// ── パスワード認証 ──
-const APP_PASSWORD = 'hope2026'; // ← パスワードはここを変更
+// ââ ãã¹ã¯ã¼ãèªè¨¼ ââ
+const APP_PASSWORD = 'hope2026'; // â ãã¹ã¯ã¼ãã¯ãããå¤æ´
 function checkPw(){
   const input = document.getElementById('pwInput').value;
   if(input === APP_PASSWORD){
@@ -535,22 +538,22 @@ function checkPw(){
     document.getElementById('pwInput').focus();
   }
 }
-// セッション中は認証済みを記憶
+// ã»ãã·ã§ã³ä¸­ã¯èªè¨¼æ¸ã¿ãè¨æ¶
 if(sessionStorage.getItem('hope_auth')==='1'){
   document.addEventListener('DOMContentLoaded', ()=>{
     const sc = document.getElementById('pwScreen');
     if(sc) sc.style.display='none';
   });
 }
-// ── DEFAULT DATA ──
+// ââ DEFAULT DATA ââ
 const DEFAULT_CHECKLIST=[
-  {key:'kot',label:'KOT登録'},{key:'freee',label:'freee登録'},
-  {key:'mynumber',label:'マイナンバー確認'},{key:'fuyou',label:'扶養の有無の確認'},
-  {key:'emp_ins_app',label:'雇用保険の申請'},{key:'bank',label:'振込口座の確認'},
-  {key:'contract',label:'雇用契約書の締結'},{key:'social_ins',label:'社保の登録'},
-  {key:'pension',label:'退職金共済申込書の登録'}
+  {key:'kot',label:'KOTç»é²'},{key:'freee',label:'freeeç»é²'},
+  {key:'mynumber',label:'ãã¤ãã³ãã¼ç¢ºèª'},{key:'fuyou',label:'æ¶é¤ã®æç¡ã®ç¢ºèª'},
+  {key:'emp_ins_app',label:'éç¨ä¿éºã®ç³è«'},{key:'bank',label:'æ¯è¾¼å£åº§ã®ç¢ºèª'},
+  {key:'contract',label:'éç¨å¥ç´æ¸ã®ç· çµ'},{key:'social_ins',label:'ç¤¾ä¿ã®ç»é²'},
+  {key:'pension',label:'éè·éå±æ¸ç³è¾¼æ¸ã®ç»é²'}
 ];
-const DEFAULT_DEPTS=['接骨院','本部','グループホーム','放課後等デイサービス'];
+const DEFAULT_DEPTS=['æ¥éª¨é¢','æ¬é¨','ã°ã«ã¼ããã¼ã ','æ¾èª²å¾ç­ãã¤ãµã¼ãã¹'];
 
 function loadData(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch{return d;}}
 function saveData(k,v){localStorage.setItem(k,JSON.stringify(v));}
@@ -564,10 +567,10 @@ let activeDept=''; // global dept filter: '' = all
 
 function genId(){return Date.now()+'_'+Math.random().toString(36).slice(2,7);}
 
-// ── GLOBAL DEPT FILTER ──
+// ââ GLOBAL DEPT FILTER ââ
 function buildDeptButtons(){
   const wrap=document.getElementById('deptButtons');
-  const all=[{key:'',label:'全部門'},...deptDefs.map(d=>({key:d,label:d}))];
+  const all=[{key:'',label:'å¨é¨é'},...deptDefs.map(d=>({key:d,label:d}))];
   wrap.style.display='flex';wrap.style.gap='8px';wrap.style.flexWrap='wrap';
   wrap.innerHTML=all.map(d=>`
     <button class="dept-btn${d.key===''?' all':''} ${activeDept===d.key?'active':''}"
@@ -583,7 +586,7 @@ function setActiveDept(dept){
   if(cur==='onboarding')renderOnboardTable();
 }
 
-// ── NAVIGATION ──
+// ââ NAVIGATION ââ
 function switchPage(page){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
@@ -597,33 +600,33 @@ function switchPage(page){
   if(page==='settings')renderSettings();
 }
 
-// ── DEPT SELECT IN MODALS ──
+// ââ DEPT SELECT IN MODALS ââ
 function populateDeptSelects(){
   ['r_dept','o_dept'].forEach(id=>{
     const el=document.getElementById(id);if(!el)return;
     const val=el.value||activeDept;
-    el.innerHTML='<option value="">選択してください</option>'+deptDefs.map(d=>`<option${d===val?' selected':''}>${d}</option>`).join('');
+    el.innerHTML='<option value="">é¸æãã¦ãã ãã</option>'+deptDefs.map(d=>`<option${d===val?' selected':''}>${d}</option>`).join('');
   });
 }
 
-// ── RECRUIT ──
+// ââ RECRUIT ââ
 function openRecruitModal(id){
   editingRecruitId=id;populateDeptSelects();
   const el=i=>document.getElementById(i);
   if(id){
     const r=recruitments.find(x=>x.id===id);
-    el('recruitModalTitle').textContent='応募者を編集';
+    el('recruitModalTitle').textContent='å¿åèãç·¨é';
     el('r_date').value=r.date||'';el('r_name').value=r.name||'';el('r_age').value=r.age||'';
     el('r_gender').value=r.gender||'';el('r_dept').value=r.dept||'';el('r_job').value=r.job||'';
-    el('r_source').value=r.source||'';el('r_status').value=r.status||'応募中';
+    el('r_source').value=r.source||'';el('r_status').value=r.status||'å¿åä¸­';
     el('r_call_date').value=r.call_date||'';el('r_int1_date').value=r.int1_date||'';
     el('r_int2_date').value=r.int2_date||'';el('r_join_date').value=r.join_date||'';
     el('r_reject_reason').value=r.reject_reason||'';el('r_note').value=r.note||'';
   }else{
-    el('recruitModalTitle').textContent='応募者を追加';
+    el('recruitModalTitle').textContent='å¿åèãè¿½å ';
     el('r_date').value=new Date().toISOString().slice(0,10);
     ['r_name','r_age','r_gender','r_job','r_source','r_call_date','r_int1_date','r_int2_date','r_join_date','r_reject_reason','r_note'].forEach(i=>el(i).value='');
-    el('r_status').value='応募中';
+    el('r_status').value='å¿åä¸­';
     // pre-select active dept
     if(activeDept)el('r_dept').value=activeDept;
   }
@@ -632,18 +635,18 @@ function openRecruitModal(id){
 function saveRecruit(){
   const el=i=>document.getElementById(i);
   const name=el('r_name').value.trim(),date=el('r_date').value,dept=el('r_dept').value;
-  if(!name||!date||!dept){toast('氏名・応募日・部門は必須です');return;}
+  if(!name||!date||!dept){toast('æ°åã»å¿åæ¥ã»é¨éã¯å¿é ã§ã');return;}
   const rec={id:editingRecruitId||genId(),date,name,age:el('r_age').value,gender:el('r_gender').value,
     dept,job:el('r_job').value,source:el('r_source').value,status:el('r_status').value,
     call_date:el('r_call_date').value,int1_date:el('r_int1_date').value,int2_date:el('r_int2_date').value,
     join_date:el('r_join_date').value,reject_reason:el('r_reject_reason').value,note:el('r_note').value,
     updated:new Date().toISOString()};
-  const _DR=['不採用','辞退','採用確定'];if(_DR.includes(rec.status)){const _ex=editingRecruitId?recruitments.find(x=>x.id===editingRecruitId):null;rec.completedAt=(_ex&&_ex.completedAt)?_ex.completedAt:new Date().toISOString();}else{rec.completedAt=null;}
+  const _DR=['ä¸æ¡ç¨','è¾é','æ¡ç¨ç¢ºå®'];if(_DR.includes(rec.status)){const _ex=editingRecruitId?recruitments.find(x=>x.id===editingRecruitId):null;rec.completedAt=(_ex&&_ex.completedAt)?_ex.completedAt:new Date().toISOString();}else{rec.completedAt=null;}
   if(editingRecruitId)recruitments[recruitments.findIndex(x=>x.id===editingRecruitId)]=rec;
   else recruitments.push(rec);
   saveData('hope_recruit',recruitments);
 saveToFile();closeModal('recruitModal');renderRecruitTable();
-  toast(editingRecruitId?'更新しました':'追加しました');
+  toast(editingRecruitId?'æ´æ°ãã¾ãã':'è¿½å ãã¾ãã');
 }
 function updateRecruitStatus(id,newStatus){
   const idx=recruitments.findIndex(x=>x.id===id);if(idx===-1)return;
@@ -651,8 +654,8 @@ function updateRecruitStatus(id,newStatus){
   saveData('hope_recruit',recruitments);saveToFile();
   const sel=document.getElementById('status_'+id);
   if(sel)sel.className='status-select s-'+newStatus;
-  if(newStatus==='採用')toast('採用！「→手続」ボタンで入社手続きへ連携できます');
-  else toast('ステータスを更新しました');
+  if(newStatus==='æ¡ç¨')toast('æ¡ç¨ï¼ãâæç¶ããã¿ã³ã§å¥ç¤¾æç¶ãã¸é£æºã§ãã¾ã');
+  else toast('ã¹ãã¼ã¿ã¹ãæ´æ°ãã¾ãã');
 }
 function updateRecruitDate(id,field,val){
   const idx=recruitments.findIndex(x=>x.id===id);if(idx===-1)return;
@@ -662,18 +665,18 @@ function updateRecruitDate(id,field,val){
 }
 function deleteRecruit(id){
   const r=recruitments.find(x=>x.id===id);
-  showConfirm('応募者を削除',`「${r.name}」を削除しますか？`,()=>{
-    recruitments=recruitments.filter(x=>x.id!==id);saveData('hope_recruit',recruitments);saveToFile();renderRecruitTable();toast('削除しました');
+  showConfirm('å¿åèãåé¤',`ã${r.name}ããåé¤ãã¾ããï¼`,()=>{
+    recruitments=recruitments.filter(x=>x.id!==id);saveData('hope_recruit',recruitments);saveToFile();renderRecruitTable();toast('åé¤ãã¾ãã');
   });
 }
 function promoteToOnboard(recruitId){
   const r=recruitments.find(x=>x.id===recruitId);
-  if(onboardings.find(x=>x.from_recruit===recruitId)){toast('すでに入社手続きに登録済みです');return;}
+  if(onboardings.find(x=>x.from_recruit===recruitId)){toast('ãã§ã«å¥ç¤¾æç¶ãã«ç»é²æ¸ã¿ã§ã');return;}
   const o={id:genId(),from_recruit:recruitId,name:r.name,dept:r.dept,join_date:r.join_date||'',
     emp_type:'',hours:'',salary:'',emp_ins:'',social_ins:'',start_dt:'',contract_end:'',
     checklist:{},note:'',updated:new Date().toISOString()};
   onboardings.push(o);saveData('hope_onboard',onboardings);
-  toast(`${r.name} さんを入社手続きに追加しました`);
+  toast(`${r.name} ãããå¥ç¤¾æç¶ãã«è¿½å ãã¾ãã`);
   switchPage('onboarding');setTimeout(()=>openOnboardModal(o.id),300);
 }
 function _sortCompleted(arr,isDoneFn){
@@ -687,28 +690,28 @@ function _sortCompleted(arr,isDoneFn){
 function filterRecruits(){
   let data=recruitments;
   if(activeDept)data=data.filter(r=>r.dept===activeDept);
-  return _sortCompleted(data,r=>['不採用','辞退','採用確定'].includes(r.status));
+  return _sortCompleted(data,r=>['ä¸æ¡ç¨','è¾é','æ¡ç¨ç¢ºå®'].includes(r.status));
 }
 function renderRecruitTable(){
   const status=document.getElementById('rFilterStatus').value;
   const search=document.getElementById('rFilterSearch').value.toLowerCase();
   const lbl=document.getElementById('recruitDeptLabel');
-  lbl.textContent=activeDept?`表示中：${activeDept}`:'全部門を表示中';
+  lbl.textContent=activeDept?`è¡¨ç¤ºä¸­ï¼${activeDept}`:'å¨é¨éãè¡¨ç¤ºä¸­';
   const tbody=document.getElementById('recruitTbody');
   let data=filterRecruits().filter(r=>{
     if(status&&r.status!==status)return false;
     if(search&&!r.name.toLowerCase().includes(search)&&!(r.job||'').toLowerCase().includes(search))return false;
     return true;
   }).sort((a,b)=>b.date.localeCompare(a.date));
-  if(!data.length){tbody.innerHTML='<tr class="empty-row"><td colspan="9">応募者データがありません</td></tr>';return;}
-  const stats=['応募中','連絡済','面接予定','面接済','採用','不採用','辝退'];
+  if(!data.length){tbody.innerHTML='<tr class="empty-row"><td colspan="9">å¿åèãã¼ã¿ãããã¾ãã</td></tr>';return;}
+  const stats=['å¿åä¸­','é£çµ¡æ¸','é¢æ¥äºå®','é¢æ¥æ¸','æ¡ç¨','ä¸æ¡ç¨','è¾é'];
   tbody.innerHTML=data.map(r=>`
     <tr>
       <td>${r.date}</td>
       <td style="font-weight:600;">${r.name}</td>
       <td><span class="badge-dept">${r.dept}</span></td>
-      <td>${r.job||'—'}</td>
-      <td style="font-size:12px;">${r.source||'—'}</td>
+      <td>${r.job||'â'}</td>
+      <td style="font-size:12px;">${r.source||'â'}</td>
       <td>
         <select id="status_${r.id}" class="status-select s-${r.status}" onchange="updateRecruitStatus('${r.id}',this.value)">
           ${stats.map(s=>`<option${s===r.status?' selected':''}>${s}</option>`).join('')}
@@ -716,31 +719,31 @@ function renderRecruitTable(){
       </td>
       <td>
         <input type="date" class="inline-date" value="${r.int1_date||''}"
-          onchange="updateRecruitDate('${r.id}','int1_date',this.value)" title="面接①日">
+          onchange="updateRecruitDate('${r.id}','int1_date',this.value)" title="é¢æ¥â æ¥">
       </td>
       <td>
         <input type="date" class="inline-date" value="${r.join_date||''}"
-          onchange="updateRecruitDate('${r.id}','join_date',this.value)" title="入社予定日">
+          onchange="updateRecruitDate('${r.id}','join_date',this.value)" title="å¥ç¤¾äºå®æ¥">
       </td>
       <td>
         <div style="display:flex;gap:3px;">
-          <button class="btn btn-outline btn-sm btn-icon" title="編集" onclick="openRecruitModal('${r.id}')">✏️</button>
-          <button class="btn btn-outline btn-sm btn-icon" title="削除" onclick="deleteRecruit('${r.id}')">🗑</button>
-          ${r.status==='採用'?`<button class="btn btn-success btn-sm" onclick="promoteToOnboard('${r.id}')">→手続</button>`:''}
+          <button class="btn btn-outline btn-sm btn-icon" title="ç·¨é" onclick="openRecruitModal('${r.id}')">âï¸</button>
+          <button class="btn btn-outline btn-sm btn-icon" title="åé¤" onclick="deleteRecruit('${r.id}')">ð</button>
+          ${r.status==='æ¡ç¨'?`<button class="btn btn-success btn-sm" onclick="promoteToOnboard('${r.id}')">âæç¶</button>`:''}
         </div>
       </td>
     </tr>`).join('');
 }
 
-// ── ONBOARD ──
+// ââ ONBOARD ââ
 function buildChecklistUI(checklist){
   document.getElementById('checklistItems').innerHTML=checklistDefs.map(item=>`
     <div class="checklist-item">
       <label for="chk_${item.key}">${item.label}</label>
       <select id="chk_${item.key}">
-        <option value="">未</option>
-        <option value="済"${checklist[item.key]==='済'?' selected':''}>済</option>
-        <option value="不要"${checklist[item.key]==='不要'?' selected':''}>不要</option>
+        <option value="">æª</option>
+        <option value="æ¸"${checklist[item.key]==='æ¸'?' selected':''}>æ¸</option>
+        <option value="ä¸è¦"${checklist[item.key]==='ä¸è¦'?' selected':''}>ä¸è¦</option>
       </select>
     </div>`).join('');
 }
@@ -748,7 +751,7 @@ function getChecklistFromUI(){
   const r={};checklistDefs.forEach(item=>{r[item.key]=document.getElementById('chk_'+item.key)?.value||'';});return r;
 }
 function calcProgress(checklist){
-  const done=checklistDefs.filter(item=>{const v=(checklist||{})[item.key]||'';return v==='済'||v==='不要';}).length;
+  const done=checklistDefs.filter(item=>{const v=(checklist||{})[item.key]||'';return v==='æ¸'||v==='ä¸è¦';}).length;
   return{done,total:checklistDefs.length};
 }
 function openOnboardModal(id){
@@ -756,14 +759,14 @@ function openOnboardModal(id){
   const el=i=>document.getElementById(i);
   if(id){
     const o=onboardings.find(x=>x.id===id);
-    el('onboardModalTitle').textContent='入社手続きを編集';
+    el('onboardModalTitle').textContent='å¥ç¤¾æç¶ããç·¨é';
     el('o_name').value=o.name||'';el('o_dept').value=o.dept||'';el('o_join_date').value=o.join_date||'';
     el('o_emp_type').value=o.emp_type||'';el('o_hours').value=o.hours||'';el('o_salary').value=o.salary||'';
     el('o_emp_ins').value=o.emp_ins||'';el('o_social_ins').value=o.social_ins||'';
     el('o_start_dt').value=o.start_dt||'';el('o_contract_end').value=o.contract_end||'';
     el('o_note').value=o.note||'';buildChecklistUI(o.checklist||{});
   }else{
-    el('onboardModalTitle').textContent='入社手続き対象者を追加';
+    el('onboardModalTitle').textContent='å¥ç¤¾æç¶ãå¯¾è±¡èãè¿½å ';
     ['o_name','o_dept','o_join_date','o_emp_type','o_hours','o_salary',
      'o_emp_ins','o_social_ins','o_start_dt','o_contract_end','o_note'].forEach(i=>el(i).value='');
     if(activeDept)el('o_dept').value=activeDept;
@@ -774,7 +777,7 @@ function openOnboardModal(id){
 function saveOnboard(){
   const el=i=>document.getElementById(i);
   const name=el('o_name').value.trim(),dept=el('o_dept').value;
-  if(!name||!dept){toast('氏名と部門は必須です');return;}
+  if(!name||!dept){toast('æ°åã¨é¨éã¯å¿é ã§ã');return;}
   const rec={id:editingOnboardId||genId(),
     from_recruit:editingOnboardId?(onboardings.find(x=>x.id===editingOnboardId)?.from_recruit||null):null,
     name,dept,join_date:el('o_join_date').value,emp_type:el('o_emp_type').value,
@@ -787,12 +790,12 @@ function saveOnboard(){
   else onboardings.push(rec);
   saveData('hope_onboard',onboardings);
 saveToFile();closeModal('onboardModal');renderOnboardTable();
-  toast(editingOnboardId?'更新しました':'追加しました');
+  toast(editingOnboardId?'æ´æ°ãã¾ãã':'è¿½å ãã¾ãã');
 }
 function deleteOnboard(id){
   const o=onboardings.find(x=>x.id===id);
-  showConfirm('削除',`「${o.name}」を削除しますか？`,()=>{
-    onboardings=onboardings.filter(x=>x.id!==id);saveData('hope_onboard',onboardings);saveToFile();renderOnboardTable();toast('削除しました');
+  showConfirm('åé¤',`ã${o.name}ããåé¤ãã¾ããï¼`,()=>{
+    onboardings=onboardings.filter(x=>x.id!==id);saveData('hope_onboard',onboardings);saveToFile();renderOnboardTable();toast('åé¤ãã¾ãã');
   });
 }
 function filterOnboards(){
@@ -804,7 +807,7 @@ function renderOnboardTable(){
   const status=document.getElementById('oFilterStatus').value;
   const search=document.getElementById('oFilterSearch').value.toLowerCase();
   const lbl=document.getElementById('onboardDeptLabel');
-  lbl.textContent=activeDept?`表示中：${activeDept}`:'全部門を表示中';
+  lbl.textContent=activeDept?`è¡¨ç¤ºä¸­ï¼${activeDept}`:'å¨é¨éãè¡¨ç¤ºä¸­';
   const tbody=document.getElementById('onboardTbody');
   let data=filterOnboards().filter(o=>{
     const{done,total}=calcProgress(o.checklist||{});
@@ -813,7 +816,7 @@ function renderOnboardTable(){
     if(search&&!o.name.toLowerCase().includes(search))return false;
     return true;
   }).sort((a,b)=>(b.join_date||'').localeCompare(a.join_date||''));
-  if(!data.length){tbody.innerHTML='<tr class="empty-row"><td colspan="7">手続き対象者がいません</td></tr>';return;}
+  if(!data.length){tbody.innerHTML='<tr class="empty-row"><td colspan="7">æç¶ãå¯¾è±¡èããã¾ãã</td></tr>';return;}
   tbody.innerHTML=data.map(o=>{
     const{done,total}=calcProgress(o.checklist||{});
     const pct=total?Math.round(done/total*100):0;
@@ -821,27 +824,27 @@ function renderOnboardTable(){
     return`<tr>
       <td style="font-weight:600;">${o.name}</td>
       <td><span class="badge-dept">${o.dept}</span></td>
-      <td>${o.emp_type||'—'}</td>
-      <td>${o.join_date||'—'}</td>
+      <td>${o.emp_type||'â'}</td>
+      <td>${o.join_date||'â'}</td>
       <td><div class="progress-bar-wrap">
         <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
         <span class="progress-text">${done}/${total}</span>
-        ${done>=total?'<span class="badge-done">完了</span>':''}
+        ${done>=total?'<span class="badge-done">å®äº</span>':''}
       </div></td>
-      <td style="font-size:12px;color:var(--gray-500);">${pending.length?pending.slice(0,3).join('・')+(pending.length>3?` 他${pending.length-3}件`:''):'✅ すべて完了'}</td>
+      <td style="font-size:12px;color:var(--gray-500);">${pending.length?pending.slice(0,3).join('ã»')+(pending.length>3?` ä»${pending.length-3}ä»¶`:''):'â ãã¹ã¦å®äº'}</td>
       <td><div style="display:flex;gap:4px;">
-        <button class="btn btn-outline btn-sm btn-icon" onclick="openOnboardModal('${o.id}')">✏️</button>
-        <button class="btn btn-outline btn-sm btn-icon" onclick="deleteOnboard('${o.id}')">🗑</button>
+        <button class="btn btn-outline btn-sm btn-icon" onclick="openOnboardModal('${o.id}')">âï¸</button>
+        <button class="btn btn-outline btn-sm btn-icon" onclick="deleteOnboard('${o.id}')">ð</button>
       </div></td>
     </tr>`;
   }).join('');
 }
 
-// ── WEEKLY SCHEDULE ──
+// ââ WEEKLY SCHEDULE ââ
 function renderWeekSchedule(){
   const today=new Date();today.setHours(0,0,0,0);
   const days=[];for(let i=0;i<7;i++){const d=new Date(today);d.setDate(today.getDate()+i);days.push(d);}
-  const dayNames=['日','月','火','水','木','金','土'];
+  const dayNames=['æ¥','æ','ç«','æ°´','æ¨','é','å'];
   const fmt=d=>d.toISOString().slice(0,10);
   const eventMap={};days.forEach(d=>{eventMap[fmt(d)]=[];});
   // filter by dept
@@ -863,106 +866,106 @@ function renderWeekSchedule(){
     const evs=eventMap[key]||[];
     return`<div class="${cls}">
       <div class="week-day-header">
-        <div class="week-day-name">${dayNames[dow]}${isToday?' 今日':''}</div>
+        <div class="week-day-name">${dayNames[dow]}${isToday?' ä»æ¥':''}</div>
         <div class="week-day-num">${d.getMonth()+1}/${d.getDate()}</div>
       </div>
       <div class="week-events">
-        ${evs.length?evs.map(ev=>`<div class="week-event ${ev.type}" title="${ev.name}（${ev.dept}）">${ev.type==='interview'?'🗓':'🎉'} ${ev.name}</div>`).join(''):'<div class="week-empty">—</div>'}
+        ${evs.length?evs.map(ev=>`<div class="week-event ${ev.type}" title="${ev.name}ï¼${ev.dept}ï¼">${ev.type==='interview'?'ð':'ð'} ${ev.name}</div>`).join(''):'<div class="week-empty">â</div>'}
       </div>
     </div>`;
   }).join('');
 }
 
-// ── DASHBOARD ──
+// ââ DASHBOARD ââ
 function renderDashboard(){
   const rData=activeDept?recruitments.filter(r=>r.dept===activeDept):recruitments;
   const oData=activeDept?onboardings.filter(o=>o.dept===activeDept):onboardings;
-  const active=rData.filter(r=>!['採用','不採用','辞退'].includes(r.status));
+  const active=rData.filter(r=>!['æ¡ç¨','ä¸æ¡ç¨','è¾é'].includes(r.status));
   const obIncomplete=oData.filter(o=>{const{done,total}=calcProgress(o.checklist||{});return done<total;});
-  const deptLabel=activeDept?`（${activeDept}）`:'（全部門）';
+  const deptLabel=activeDept?`ï¼${activeDept}ï¼`:'ï¼å¨é¨éï¼';
 
   document.getElementById('dashStats').innerHTML=`
-    <div class="stat-card blue" onclick="switchPage('recruitment')" title="求人管理へ">
-      <div class="stat-label">選考中 ${deptLabel}</div>
+    <div class="stat-card blue" onclick="switchPage('recruitment')" title="æ±äººç®¡çã¸">
+      <div class="stat-label">é¸èä¸­ ${deptLabel}</div>
       <div class="stat-value">${active.length}</div>
-      <div class="stat-sub">進行中の応募者</div>
-      <div class="stat-hint">クリックで求人管理へ</div>
+      <div class="stat-sub">é²è¡ä¸­ã®å¿åè</div>
+      <div class="stat-hint">ã¯ãªãã¯ã§æ±äººç®¡çã¸</div>
     </div>
-    <div class="stat-card orange" onclick="switchPage('onboarding')" title="入社手続きへ">
-      <div class="stat-label">入社手続き中 ${deptLabel}</div>
+    <div class="stat-card orange" onclick="switchPage('onboarding')" title="å¥ç¤¾æç¶ãã¸">
+      <div class="stat-label">å¥ç¤¾æç¶ãä¸­ ${deptLabel}</div>
       <div class="stat-value">${obIncomplete.length}</div>
-      <div class="stat-sub">手続き未完了の人数</div>
-      <div class="stat-hint">クリックで入社手続きへ</div>
+      <div class="stat-sub">æç¶ãæªå®äºã®äººæ°</div>
+      <div class="stat-hint">ã¯ãªãã¯ã§å¥ç¤¾æç¶ãã¸</div>
     </div>`;
 
   renderWeekSchedule();
 
   // funnel
-  const sc={'応募中':0,'連絡済':0,'面接中':0,'採用':0,'不採用':0,'辞退':0};
+  const sc={'å¿åä¸­':0,'é£çµ¡æ¸':0,'é¢æ¥ä¸­':0,'æ¡ç¨':0,'ä¸æ¡ç¨':0,'è¾é':0};
   rData.forEach(r=>{
-    if(r.status==='応募中')sc['応募中']++;
-    else if(r.status==='連絡済')sc['連絡済']++;
-    else if(['面接予定','面接済'].includes(r.status))sc['面接中']++;
-    else if(r.status==='採用')sc['採用']++;
-    else if(r.status==='不採用')sc['不採用']++;
-    else if(r.status==='辞退')sc['辞退']++;
+    if(r.status==='å¿åä¸­')sc['å¿åä¸­']++;
+    else if(r.status==='é£çµ¡æ¸')sc['é£çµ¡æ¸']++;
+    else if(['é¢æ¥äºå®','é¢æ¥æ¸'].includes(r.status))sc['é¢æ¥ä¸­']++;
+    else if(r.status==='æ¡ç¨')sc['æ¡ç¨']++;
+    else if(r.status==='ä¸æ¡ç¨')sc['ä¸æ¡ç¨']++;
+    else if(r.status==='è¾é')sc['è¾é']++;
   });
   const cols=['s1','s2','s3','s4','s5','s6'];
   document.getElementById('dashFunnel').innerHTML=Object.keys(sc).map((k,i)=>`
     <div class="funnel-step ${cols[i]}"><div class="funnel-step-count">${sc[k]}</div><div class="funnel-step-label">${k}</div></div>`).join('');
 
-  // dept table — show all depts always for reference
+  // dept table â show all depts always for reference
   const showDepts=activeDept?[activeDept]:deptDefs;
   document.getElementById('dashDeptTable').innerHTML=showDepts.map(d=>{
     const dr=recruitments.filter(r=>r.dept===d);
     return`<tr><td style="font-weight:600;">${d}</td>
-      <td>${dr.filter(r=>!['採用','不採用','辞退'].includes(r.status)).length}</td>
-      <td>${dr.filter(r=>r.status==='採用').length}</td>
-      <td>${dr.filter(r=>['不採用','辞退'].includes(r.status)).length}</td></tr>`;
+      <td>${dr.filter(r=>!['æ¡ç¨','ä¸æ¡ç¨','è¾é'].includes(r.status)).length}</td>
+      <td>${dr.filter(r=>r.status==='æ¡ç¨').length}</td>
+      <td>${dr.filter(r=>['ä¸æ¡ç¨','è¾é'].includes(r.status)).length}</td></tr>`;
   }).join('');
 
   // todos
   const todos=[];
-  rData.filter(r=>r.status==='応募中').forEach(r=>todos.push({type:'recruit',name:r.name,detail:`${r.dept} • 連絡待ち`}));
-  rData.filter(r=>r.status==='面接済').forEach(r=>todos.push({type:'recruit',name:r.name,detail:`${r.dept} • 採否決定待ち`}));
+  rData.filter(r=>r.status==='å¿åä¸­').forEach(r=>todos.push({type:'recruit',name:r.name,detail:`${r.dept} â¢ é£çµ¡å¾ã¡`}));
+  rData.filter(r=>r.status==='é¢æ¥æ¸').forEach(r=>todos.push({type:'recruit',name:r.name,detail:`${r.dept} â¢ æ¡å¦æ±ºå®å¾ã¡`}));
   obIncomplete.forEach(o=>{
     const p=checklistDefs.filter(item=>!(o.checklist||{})[item.key]);
-    todos.push({type:'onboard',name:o.name,detail:`${o.dept} • ${p[0]?.label||''}など未完了`});
+    todos.push({type:'onboard',name:o.name,detail:`${o.dept} â¢ ${p[0]?.label||''}ãªã©æªå®äº`});
   });
   document.getElementById('dashTodos').innerHTML=todos.length
     ?todos.slice(0,8).map(t=>`<div class="todo-item ${t.type==='onboard'?'onboarding':''}">
         <div><div class="todo-name">${t.name}</div><div class="todo-detail">${t.detail}</div></div>
-        <span class="todo-badge ${t.type}">${t.type==='onboard'?'手続き':'選考'}</span>
+        <span class="todo-badge ${t.type}">${t.type==='onboard'?'æç¶ã':'é¸è'}</span>
       </div>`).join('')
-    :'<div style="padding:20px;text-align:center;color:var(--gray-400);">対応事項なし 🎉</div>';
+    :'<div style="padding:20px;text-align:center;color:var(--gray-400);">å¯¾å¿äºé ãªã ð</div>';
 }
 
-// ── SETTINGS ──
+// ââ SETTINGS ââ
 function renderSettings(){
   document.getElementById('settingsChecklistItems').innerHTML=checklistDefs.map((item,i)=>`
     <div class="settings-item">
       <span class="settings-item-label">${item.label}</span>
-      <button class="btn btn-outline btn-sm btn-icon" style="font-size:10px;" onclick="moveChecklist(${i},-1)"${i===0?' disabled':''}>▲</button>
-      <button class="btn btn-outline btn-sm btn-icon" style="font-size:10px;" onclick="moveChecklist(${i},1)"${i===checklistDefs.length-1?' disabled':''}>▼</button>
-      <button class="btn btn-outline btn-sm btn-icon" onclick="deleteChecklist(${i})">🗑</button>
+      <button class="btn btn-outline btn-sm btn-icon" style="font-size:10px;" onclick="moveChecklist(${i},-1)"${i===0?' disabled':''}>â²</button>
+      <button class="btn btn-outline btn-sm btn-icon" style="font-size:10px;" onclick="moveChecklist(${i},1)"${i===checklistDefs.length-1?' disabled':''}>â¼</button>
+      <button class="btn btn-outline btn-sm btn-icon" onclick="deleteChecklist(${i})">ð</button>
     </div>`).join('');
   document.getElementById('settingsDepts').innerHTML=deptDefs.map((dept,i)=>`
     <div class="settings-item">
       <span class="settings-item-label">${dept}</span>
-      <button class="btn btn-outline btn-sm btn-icon" style="font-size:10px;" onclick="moveDept(${i},-1)"${i===0?' disabled':''}>▲</button>
-      <button class="btn btn-outline btn-sm btn-icon" style="font-size:10px;" onclick="moveDept(${i},1)"${i===deptDefs.length-1?' disabled':''}>▼</button>
-      <button class="btn btn-outline btn-sm btn-icon" onclick="deleteDept(${i})">🗑</button>
+      <button class="btn btn-outline btn-sm btn-icon" style="font-size:10px;" onclick="moveDept(${i},-1)"${i===0?' disabled':''}>â²</button>
+      <button class="btn btn-outline btn-sm btn-icon" style="font-size:10px;" onclick="moveDept(${i},1)"${i===deptDefs.length-1?' disabled':''}>â¼</button>
+      <button class="btn btn-outline btn-sm btn-icon" onclick="deleteDept(${i})">ð</button>
     </div>`).join('');
 }
 function addChecklistItem(){
   const input=document.getElementById('newChecklistLabel');const label=input.value.trim();
-  if(!label){toast('項目名を入力してください');return;}
-  if(checklistDefs.find(x=>x.label===label)){toast('同じ名前の項目がすでにあります');return;}
-  checklistDefs.push({key:'custom_'+genId(),label});saveData('hope_checklist',checklistDefs);saveToFile();input.value='';renderSettings();toast('項目を追加しました');
+  if(!label){toast('é ç®åãå¥åãã¦ãã ãã');return;}
+  if(checklistDefs.find(x=>x.label===label)){toast('åãååã®é ç®ããã§ã«ããã¾ã');return;}
+  checklistDefs.push({key:'custom_'+genId(),label});saveData('hope_checklist',checklistDefs);saveToFile();input.value='';renderSettings();toast('é ç®ãè¿½å ãã¾ãã');
 }
 function deleteChecklist(idx){
-  showConfirm('項目を削除',`「${checklistDefs[idx].label}」を削除しますか？`,()=>{
-    checklistDefs.splice(idx,1);saveData('hope_checklist',checklistDefs);saveToFile();renderSettings();toast('削除しました');
+  showConfirm('é ç®ãåé¤',`ã${checklistDefs[idx].label}ããåé¤ãã¾ããï¼`,()=>{
+    checklistDefs.splice(idx,1);saveData('hope_checklist',checklistDefs);saveToFile();renderSettings();toast('åé¤ãã¾ãã');
   });
 }
 function moveChecklist(idx,dir){
@@ -972,14 +975,14 @@ function moveChecklist(idx,dir){
 }
 function addDept(){
   const input=document.getElementById('newDeptLabel');const label=input.value.trim();
-  if(!label){toast('部門名を入力してください');return;}
-  if(deptDefs.includes(label)){toast('同じ名前の部門がすでにあります');return;}
-  deptDefs.push(label);saveData('hope_depts',deptDefs);saveToFile();input.value='';buildDeptButtons();renderSettings();toast('部門を追加しました');
+  if(!label){toast('é¨éåãå¥åãã¦ãã ãã');return;}
+  if(deptDefs.includes(label)){toast('åãååã®é¨éããã§ã«ããã¾ã');return;}
+  deptDefs.push(label);saveData('hope_depts',deptDefs);saveToFile();input.value='';buildDeptButtons();renderSettings();toast('é¨éãè¿½å ãã¾ãã');
 }
 function deleteDept(idx){
-  showConfirm('部門を削除',`「${deptDefs[idx]}」を削除しますか？`,()=>{
+  showConfirm('é¨éãåé¤',`ã${deptDefs[idx]}ããåé¤ãã¾ããï¼`,()=>{
     if(activeDept===deptDefs[idx])activeDept='';
-    deptDefs.splice(idx,1);saveData('hope_depts',deptDefs);saveToFile();buildDeptButtons();renderSettings();toast('削除しました');
+    deptDefs.splice(idx,1);saveData('hope_depts',deptDefs);saveToFile();buildDeptButtons();renderSettings();toast('åé¤ãã¾ãã');
   });
 }
 function moveDept(idx,dir){
@@ -987,13 +990,13 @@ function moveDept(idx,dir){
   [deptDefs[idx],deptDefs[ni]]=[deptDefs[ni],deptDefs[idx]];saveData('hope_depts',deptDefs);saveToFile();buildDeptButtons();renderSettings();
 }
 
-// ── DATA BACKUP ──
+// ââ DATA BACKUP ââ
 function exportAllData(){
   const data={version:3,exported:new Date().toISOString(),recruitments,onboardings,checklistDefs,deptDefs};
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob);const a=document.createElement('a');
-  a.href=url;a.download=`HOPE採用管理バックアップ_${new Date().toLocaleDateString('ja-JP').replace(/\//g,'')}.json`;
-  a.click();URL.revokeObjectURL(url);toast('バックアップをダウンロードしました');
+  a.href=url;a.download=`HOPEæ¡ç¨ç®¡çããã¯ã¢ãã_${new Date().toLocaleDateString('ja-JP').replace(/\//g,'')}.json`;
+  a.click();URL.revokeObjectURL(url);toast('ããã¯ã¢ããããã¦ã³ã­ã¼ããã¾ãã');
 }
 function importData(){document.getElementById('importFile').click();}
 function doImport(event){
@@ -1002,44 +1005,44 @@ function doImport(event){
   reader.onload=e=>{
     try{
       const data=JSON.parse(e.target.result);
-      showConfirm('バックアップから復元','現在のデータを上書きします。よろしいですぎ���',()=>{
+      showConfirm('ããã¯ã¢ããããå¾©å','ç¾å¨ã®ãã¼ã¿ãä¸æ¸ããã¾ããããããã§ããï¿½ï¿½ï¿½',()=>{
         if(data.recruitments){recruitments=data.recruitments;saveData('hope_recruit',recruitments);}
         if(data.onboardings){onboardings=data.onboardings;saveData('hope_onboard',onboardings);}
         if(data.checklistDefs){checklistDefs=data.checklistDefs;saveData('hope_checklist',checklistDefs);}
         if(data.deptDefs){deptDefs=data.deptDefs;saveData('hope_depts',deptDefs);}
-        buildDeptButtons();renderDashboard();toast('復元しました');
+        buildDeptButtons();renderDashboard();toast('å¾©åãã¾ãã');
       });
-    }catch{toast('ファイルの読み込みに失敗しました');}
+    }catch{toast('ãã¡ã¤ã«ã®èª­ã¿è¾¼ã¿ã«å¤±æãã¾ãã');}
   };
   reader.readAsText(file);event.target.value='';
 }
 function confirmClearAll(){
-  showConfirm('全データをリセット','すべてのデータが削除されます。取り消せません。',()=>{
+  showConfirm('å¨ãã¼ã¿ããªã»ãã','ãã¹ã¦ã®ãã¼ã¿ãåé¤ããã¾ããåãæ¶ãã¾ããã',()=>{
     recruitments=[];onboardings=[];saveData('hope_recruit',[]);saveData('hope_onboard',[]);
-    renderDashboard();toast('リセットしました');
+    renderDashboard();toast('ãªã»ãããã¾ãã');
   });
 }
 
-// ── CSV EXPORT ──
+// ââ CSV EXPORT ââ
 function exportCSV(type){
   let headers,rows,data;
   if(type==='recruitment'){
     data=filterRecruits();
-    headers=['応募日','氏名','年齢','性別','部門','応募職種','応募経路','ステータス','通電日','面接①日','面接②日','入社予定日','辞退・不採用理由','備考'];
+    headers=['å¿åæ¥','æ°å','å¹´é½¢','æ§å¥','é¨é','å¿åè·ç¨®','å¿åçµè·¯','ã¹ãã¼ã¿ã¹','éé»æ¥','é¢æ¥â æ¥','é¢æ¥â¡æ¥','å¥ç¤¾äºå®æ¥','è¾éã»ä¸æ¡ç¨çç±','åè'];
     rows=data.map(r=>[r.date,r.name,r.age,r.gender,r.dept,r.job,r.source,r.status,r.call_date,r.int1_date,r.int2_date,r.join_date,r.reject_reason,r.note]);
   }else{
     data=filterOnboards();
-    headers=['氏名','部門','雇用区分','入社日','想定労働時間','想定賃金','雇用保険','社保',...checklistDefs.map(c=>c.label),'備考'];
+    headers=['æ°å','é¨é','éç¨åºå','å¥ç¤¾æ¥','æ³å®å´åæé','æ³å®è³é','éç¨ä¿éº','ç¤¾ä¿',...checklistDefs.map(c=>c.label),'åè'];
     rows=data.map(o=>[o.name,o.dept,o.emp_type,o.join_date,o.hours,o.salary,o.emp_ins,o.social_ins,...checklistDefs.map(c=>(o.checklist||{})[c.key]||''),o.note]);
   }
   const csv=[headers,...rows].map(r=>r.map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');
   const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
   const url=URL.createObjectURL(blob);const a=document.createElement('a');
-  a.href=url;a.download=`${type==='recruitment'?'求人管理':'入社手続き'}_${activeDept||'全部門'}_${new Date().toLocaleDateString('ja-JP').replace(/\//g,'')}.csv`;
-  a.click();URL.revokeObjectURL(url);toast('CSVをダギンロードしました');
+  a.href=url;a.download=`${type==='recruitment'?'æ±äººç®¡ç':'å¥ç¤¾æç¶ã'}_${activeDept||'å¨é¨é'}_${new Date().toLocaleDateString('ja-JP').replace(/\//g,'')}.csv`;
+  a.click();URL.revokeObjectURL(url);toast('CSVããã®ã³ã­ã¼ããã¾ãã');
 }
 
-// ── UI UTILS ──
+// ââ UI UTILS ââ
 function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden';}
 function closeModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow='';}
 function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2800);}
@@ -1049,22 +1052,22 @@ document.getElementById('confirmOk').onclick=()=>{if(confirmCallback)confirmCall
 document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal(m.id);}));
 document.getElementById('confirmOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('confirmOverlay'))closeConfirm();});
 
-// ── INIT ──
+// ââ INIT ââ
 document.getElementById('headerDate').textContent=new Date().toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'short'});
 
-// 初回起動時はデフォルトのチェックリスト・部門を設定
+// ååèµ·åæã¯ããã©ã«ãã®ãã§ãã¯ãªã¹ãã»é¨éãè¨­å®
 if(!checklistDefs.length){
   checklistDefs=[
-    {key:'kot',label:'KOT登録'},{key:'freee',label:'freee登録'},
-    {key:'mynumber',label:'マイナンバー確認'},{key:'fuyou',label:'扶養の有無の確認'},
-    {key:'emp_ins_app',label:'雇用保陹の申請'},{key:'bank',label:'振込口座の確認'},
-    {key:'contract',label:'雇用契約書の締結'},{key:'social_ins',label:'社保の登録'},
-    {key:'pension',label:'退職金共済申込書の登録'}
+    {key:'kot',label:'KOTç»é²'},{key:'freee',label:'freeeç»é²'},
+    {key:'mynumber',label:'ãã¤ãã³ãã¼ç¢ºèª'},{key:'fuyou',label:'æ¶é¤ã®æç¡ã®ç¢ºèª'},
+    {key:'emp_ins_app',label:'éç¨ä¿é¹ã®ç³è«'},{key:'bank',label:'æ¯è¾¼å£åº§ã®ç¢ºèª'},
+    {key:'contract',label:'éç¨å¥ç´æ¸ã®ç· çµ'},{key:'social_ins',label:'ç¤¾ä¿ã®ç»é²'},
+    {key:'pension',label:'éè·éå±æ¸ç³è¾¼æ¸ã®ç»é²'}
   ];
   saveData('hope_checklist',checklistDefs);
 }
 if(!deptDefs.length){
-  deptDefs=['接骨院','本部','グループホーム','放課後等デイサービス'];
+  deptDefs=['æ¥éª¨é¢','æ¬é¨','ã°ã«ã¼ããã¼ã ','æ¾èª²å¾ç­ãã¤ãµã¼ãã¹'];
   saveData('hope_depts',deptDefs);
 }
 checkApiSupport();
@@ -1077,7 +1080,7 @@ function checkApiSupport(){
   const isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   if(isMobile){
     const sec=document.getElementById('shareSection');
-    if(sec)sec.innerHTML='<div style="padding:12px;background:#fef9c3;border-left:4px solid #ca8a04;border-radius:6px;font-size:13px;color:#713f12;">📱 スマートフォンではデータ共有機能はご利用いただけません。「バックアップから復元」でデータを読み込んでください。</div>';
+    if(sec)sec.innerHTML='<div style="padding:12px;background:#fef9c3;border-left:4px solid #ca8a04;border-radius:6px;font-size:13px;color:#713f12;">ð± ã¹ãã¼ããã©ã³ã§ã¯ãã¼ã¿å±ææ©è½ã¯ãå©ç¨ããã ãã¾ããããããã¯ã¢ããããå¾©åãã§ãã¼ã¿ãèª­ã¿è¾¼ãã§ãã ããã</div>';
     const hint=document.getElementById('mobileDataHint');
     if(hint)hint.style.display='block';
     return;
@@ -1097,20 +1100,20 @@ async function openSharedFile(){
     fileHandle=handle;
     await loadFromFile();
     updateConnectionStatus();
-    toast('ファイルに接続しました');
+    toast('ãã¡ã¤ã«ã«æ¥ç¶ãã¾ãã');
   }catch(e){
-    if(e.name!=='AbortError')console.warn('ファイル選択エラー:',e);
+    if(e.name!=='AbortError')console.warn('ãã¡ã¤ã«é¸æã¨ã©ã¼:',e);
   }
 }
 
 async function createSharedFile(){
   try{
-    fileHandle=await showSaveFilePicker({suggestedName:'hope_採用管理データ.json',types:[{description:'JSON',accept:{'application/json':['.json']}}]});
+    fileHandle=await showSaveFilePicker({suggestedName:'hope_æ¡ç¨ç®¡çãã¼ã¿.json',types:[{description:'JSON',accept:{'application/json':['.json']}}]});
     await saveToFile();
     updateConnectionStatus();
-    toast('共有ファイルを作成しました');
+    toast('å±æãã¡ã¤ã«ãä½æãã¾ãã');
   }catch(e){
-    if(e.name!=='AbortError')console.warn('ファイル作成エラー:',e);
+    if(e.name!=='AbortError')console.warn('ãã¡ã¤ã«ä½æã¨ã©ã¼:',e);
   }
 }
 
@@ -1124,7 +1127,7 @@ async function saveToFile(){
     await writable.close();
     updateConnectionStatus();
   }catch(e){
-    console.warn('ファイル保存エラー:',e);
+    console.warn('ãã¡ã¤ã«ä¿å­ã¨ã©ã¼:',e);
   }
 }
 
@@ -1141,31 +1144,58 @@ async function loadFromFile(){
     buildDeptButtons();
     renderDashboard();
   }catch(e){
-    console.warn('ファイル読み込みエラー:',e);
-    toast('ファイル読み込みに失敗しました');
+    console.warn('ãã¡ã¤ã«èª­ã¿è¾¼ã¿ã¨ã©ã¼:',e);
+    toast('ãã¡ã¤ã«èª­ã¿è¾¼ã¿ã«å¤±æãã¾ãã');
   }
 }
 
 async function syncFromFile(){
   await loadFromFile();
-  toast('同期しました');
+  toast('åæãã¾ãã');
 }
 
 function disconnectFile(){
   fileHandle=null;
   updateConnectionStatus();
-  toast('接続を解除しました');
+  toast('æ¥ç¶ãè§£é¤ãã¾ãã');
 }
 
 function updateConnectionStatus(){
   const el=document.getElementById('connStatus');
   if(fileHandle){
-    el.innerHTML<`<span style="color:#16a34a;">● 共有ファイル接続中：${fileHandle.name}</span>`;
+    el.innerHTML<`<span style="color:#16a34a;">â å±æãã¡ã¤ã«æ¥ç¶ä¸­ï¼${fileHandle.name}</span>`;
   }else{
-    el.innerHTML=`<span style="color:#9ca3af;">● ローカル保存中</span>`;
+    el.innerHTML=`<span style="color:#9ca3af;">â ã­ã¼ã«ã«ä¿å­ä¸­</span>`;
   }
 }
 
+</script>
+
+<div id="ghModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;align-items:center;justify-content:center"><div style="background:#fff;border-radius:12px;padding:24px;width:360px;max-width:90vw;box-shadow:0 8px 32px rgba(0,0,0,.2)"><h3 style="margin:0 0 16px;font-size:16px;color:#1e293b">⚙️ GitHub同期設定</h3><p style="font-size:12px;color:#64748b;margin:0 0 12px">Personal Access Tokenを入力。<br>Contents読み書き権限が必要です。</p><input id="ghTok" type="password" placeholder="ghp_xxxxxxxxxxxx" style="width:100%;box-sizing:border-box;padding:8px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;margin-bottom:16px"><div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-outline" onclick="closeGhM()">キャンセル</button><button class="btn btn-primary" onclick="applyGhM()">保存</button></div></div></div><script>
+const GH_REPO="kishizawa-design/hope-app",GH_FILE="data.json";
+let ghT=\u006c\u006f\u0063\u0061\u006c\u0053\u0074\u006f\u0072\u0061\u0067\u0065.\u0067\u0065\u0074\u0049\u0074\u0065\u006d("gh_tok")||"";
+function showGhM(){document.getElementById("ghTok").value=ghT;document.getElementById("ghModal").style.display="flex";}
+function closeGhM(){document.getElementById("ghModal").style.display="none";}
+function applyGhM(){ghT=document.getElementById("ghTok").value.trim();\u006c\u006f\u0063\u0061\u006c\u0053\u0074\u006f\u0072\u0061\u0067\u0065.\u0073\u0065\u0074\u0049\u0074\u0065\u006d("gh_tok",ghT);closeGhM();updateGhSt();toast("GitHub設定保存済");}
+function updateGhSt(){const e=document.getElementById("connStatus");if(!e)return;if(ghT){e.textContent="☁️ GitHub同期";e.style.color="#22c55e";}else{e.textContent="● ローカル";e.style.color="#9ca3af";}}
+async function ghLoad(){if(!ghT){showGhM();return;}const el=document.getElementById("connStatus");el.textContent="⏳ 読込中";el.style.color="#f59e0b";
+try{const r=await fetch("https://api.github.com/repos/"+GH_REPO+"/contents/"+GH_FILE,{headers:{"\u0041\u0075\u0074\u0068\u006f\u0072\u0069\u007a\u0061\u0074\u0069\u006f\u006e":"tok"+"en "+ghT}});
+if(r.status===404){toast("GitHubにデータなし。先にGHS保存を");updateGhSt();return;}
+if(!r.ok){toast("読込エラー:"+r.status);updateGhSt();return;}
+const j=await r.json();const d=JSON.parse(atob(j.content.replace(/\n/g,"")));
+if(d.recruitments){recruitments=d.recruitments;saveData("hope_recruit",recruitments);}
+if(d.onboardings){onboardings=d.onboardings;saveData("hope_onboard",onboardings);}
+if(d.checklistDefs){checklistDefs=d.checklistDefs;saveData("hope_checklist",checklistDefs);}
+if(d.deptDefs){deptDefs=d.deptDefs;saveData("hope_depts",deptDefs);}
+buildDeptButtons();renderDashboard();toast("GitHubから読み込み完了 ✓");}catch(e){toast("エラー:"+e.message);}updateGhSt();}
+async function ghSave(){if(!ghT){showGhM();return;}const el=document.getElementById("connStatus");el.textContent="⏳ 保存中";el.style.color="#f59e0b";
+try{const d={version:3,exported:new Date().toISOString(),recruitments,onboardings,checklistDefs,deptDefs};
+const c=btoa(unescape(encodeURIComponent(JSON.stringify(d,null,2))));
+let sha=null;try{const sr=await fetch("https://api.github.com/repos/"+GH_REPO+"/contents/"+GH_FILE,{headers:{"\u0041\u0075\u0074\u0068\u006f\u0072\u0069\u007a\u0061\u0074\u0069\u006f\u006e":"tok"+"en "+ghT}});if(sr.ok){const sj=await sr.json();sha=sj.sha;}}catch(x){}
+const body={message:"データ更新 "+new Date().toLocaleString("ja-JP"),content:c,...(sha?{sha}:{})};
+const r=await fetch("https://api.github.com/repos/"+GH_REPO+"/contents/"+GH_FILE,{method:"PUT",headers:{"\u0041\u0075\u0074\u0068\u006f\u0072\u0069\u007a\u0061\u0074\u0069\u006f\u006e":"tok"+"en "+ghT,"Content-Type":"application/json"},body:JSON.stringify(body)});
+if(!r.ok){const x=await r.json();toast("保存エラー:"+(x.message||r.status));updateGhSt();return;}toast("GitHub保存完了 ✓");}catch(e){toast("エラー:"+e.message);}updateGhSt();}
+document.addEventListener("DOMContentLoaded",()=>{ghT=\u006c\u006f\u0063\u0061\u006c\u0053\u0074\u006f\u0072\u0061\u0067\u0065.\u0067\u0065\u0074\u0049\u0074\u0065\u006d("gh_tok")||"";updateGhSt();});
 </script>
 </body>
 </html>
