@@ -110,7 +110,7 @@
   .status-select{padding:4px 8px;border:1px solid var(--gray-300);border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;background:white;}
   .status-select:focus{outline:none;}
   .status-select.s-応募中{background:#e0e7ff;color:#3730a3;border-color:#a5b4fc;}
-  .status-select.s-通電済{background:#fef3c7;color:#92400e;border-color:#fcd34d;}
+  .status-select.s-連絡済{background:#fef3c7;color:#92400e;border-color:#fcd34d;}
   .status-select.s-面接予定{background:#dbeafe;color:#1e40af;border-color:#93c5fd;}
   .status-select.s-面接済{background:#cffafe;color:#155e75;border-color:#67e8f9;}
   .status-select.s-採用{background:#dcfce7;color:#166534;border-color:#86efac;}
@@ -324,7 +324,7 @@
       <span class="filter-label">絞り込み：</span>
       <select id="rFilterStatus" onchange="renderRecruitTable()">
         <option value="">全ステータス</option>
-        <option>応募中</option><option>通電済</option><option>面接予定</option>
+        <option>応募中</option><option>連絡済</option><option>面接予定</option>
         <option>面接済</option><option>採用</option><option>不採用</option><option>辝退</option>
       </select>
       <input type="text" id="rFilterSearch" placeholder="氏名・職種で検索..." oninput="renderRecruitTable()" style="min-width:180px;">
@@ -444,7 +444,7 @@
         <div class="form-group"><label class="form-label">応募経路</label>
           <select class="form-control" id="r_source"><option value="">選択</option><option>Indeed</option><option>タイミー</option><option>ハローワーク</option><option>紹介</option><option>タウンワーク</option><option>自社HP</option><option>その他</option></select></div>
         <div class="form-group"><label class="form-label">ステータス <span class="req">*</span></label>
-          <select class="form-control" id="r_status"><option>応募中</option><option>通電済</option><option>面接予定</option><option>面接済</option><option>採用</option><option>不採用</option><option>辞退</option></select></div>
+          <select class="form-control" id="r_status"><option>応募中</option><option>連絡済</option><option>面接予定</option><option>面接済</option><option>採用</option><option>不採用</option><option>辞退</option></select></div>
       </div>
       <div class="form-section">
         <div class="form-section-title">📅 日程</div>
@@ -638,6 +638,7 @@ function saveRecruit(){
     call_date:el('r_call_date').value,int1_date:el('r_int1_date').value,int2_date:el('r_int2_date').value,
     join_date:el('r_join_date').value,reject_reason:el('r_reject_reason').value,note:el('r_note').value,
     updated:new Date().toISOString()};
+  const _DR=['不採用','辞退','採用確定'];if(_DR.includes(rec.status)){const _ex=editingRecruitId?recruitments.find(x=>x.id===editingRecruitId):null;rec.completedAt=(_ex&&_ex.completedAt)?_ex.completedAt:new Date().toISOString();}else{rec.completedAt=null;}
   if(editingRecruitId)recruitments[recruitments.findIndex(x=>x.id===editingRecruitId)]=rec;
   else recruitments.push(rec);
   saveData('hope_recruit',recruitments);
@@ -675,10 +676,18 @@ function promoteToOnboard(recruitId){
   toast(`${r.name} さんを入社手続きに追加しました`);
   switchPage('onboarding');setTimeout(()=>openOnboardModal(o.id),300);
 }
+function _sortCompleted(arr,isDoneFn){
+  const MS3=3*24*60*60*1000,now=Date.now();
+  return arr.slice().sort((a,b)=>{
+    const aD=isDoneFn(a)&&a.completedAt&&(now-new Date(a.completedAt).getTime())>MS3;
+    const bD=isDoneFn(b)&&b.completedAt&&(now-new Date(b.completedAt).getTime())>MS3;
+    return aD===bD?0:aD?1:-1;
+  });
+}
 function filterRecruits(){
   let data=recruitments;
   if(activeDept)data=data.filter(r=>r.dept===activeDept);
-  return data;
+  return _sortCompleted(data,r=>['不採用','辞退','採用確定'].includes(r.status));
 }
 function renderRecruitTable(){
   const status=document.getElementById('rFilterStatus').value;
@@ -692,7 +701,7 @@ function renderRecruitTable(){
     return true;
   }).sort((a,b)=>b.date.localeCompare(a.date));
   if(!data.length){tbody.innerHTML='<tr class="empty-row"><td colspan="9">応募者データがありません</td></tr>';return;}
-  const stats=['応募中','通電済','面接予定','面接済','採用','不採用','辝退'];
+  const stats=['応募中','連絡済','面接予定','面接済','採用','不採用','辝退'];
   tbody.innerHTML=data.map(r=>`
     <tr>
       <td>${r.date}</td>
@@ -773,6 +782,7 @@ function saveOnboard(){
     emp_ins:el('o_emp_ins').value,social_ins:el('o_social_ins').value,
     start_dt:el('o_start_dt').value,contract_end:el('o_contract_end').value,
     checklist:getChecklistFromUI(),note:el('o_note').value,updated:new Date().toISOString()};
+  {const _cl=rec.checklist||{};const _ks=Object.keys(_cl);const _allDone=_ks.length>0&&_ks.every(k=>_cl[k]);if(_allDone){const _ex=editingOnboardId?onboardings.find(x=>x.id===editingOnboardId):null;rec.completedAt=(_ex&&_ex.completedAt)?_ex.completedAt:new Date().toISOString();}else{rec.completedAt=null;}}
   if(editingOnboardId)onboardings[onboardings.findIndex(x=>x.id===editingOnboardId)]=rec;
   else onboardings.push(rec);
   saveData('hope_onboard',onboardings);
@@ -788,7 +798,7 @@ function deleteOnboard(id){
 function filterOnboards(){
   let data=onboardings;
   if(activeDept)data=data.filter(o=>o.dept===activeDept);
-  return data;
+  return _sortCompleted(data,o=>{const cl=o.checklist||{};const ks=Object.keys(cl);return ks.length>0&&ks.every(k=>cl[k]);});
 }
 function renderOnboardTable(){
   const status=document.getElementById('oFilterStatus').value;
@@ -888,10 +898,10 @@ function renderDashboard(){
   renderWeekSchedule();
 
   // funnel
-  const sc={'応募中':0,'通電済':0,'面接中':0,'採用':0,'不採用':0,'辞退':0};
+  const sc={'応募中':0,'連絡済':0,'面接中':0,'採用':0,'不採用':0,'辞退':0};
   rData.forEach(r=>{
     if(r.status==='応募中')sc['応募中']++;
-    else if(r.status==='通電済')sc['通電済']++;
+    else if(r.status==='連絡済')sc['連絡済']++;
     else if(['面接予定','面接済'].includes(r.status))sc['面接中']++;
     else if(r.status==='採用')sc['採用']++;
     else if(r.status==='不採用')sc['不採用']++;
@@ -913,7 +923,7 @@ function renderDashboard(){
 
   // todos
   const todos=[];
-  rData.filter(r=>r.status==='応募中').forEach(r=>todos.push({type:'recruit',name:r.name,detail:`${r.dept} • 通電待ち`}));
+  rData.filter(r=>r.status==='応募中').forEach(r=>todos.push({type:'recruit',name:r.name,detail:`${r.dept} • 連絡待ち`}));
   rData.filter(r=>r.status==='面接済').forEach(r=>todos.push({type:'recruit',name:r.name,detail:`${r.dept} • 採否決定待ち`}));
   obIncomplete.forEach(o=>{
     const p=checklistDefs.filter(item=>!(o.checklist||{})[item.key]);
